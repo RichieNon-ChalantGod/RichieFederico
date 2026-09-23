@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuoBelajar - Belajar Bahasa Seru & Streak Harian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==================== DESIGN SYSTEM & VARIABLES ==================== */
+    :root {
+      --color-green: #58cc02;
+      --color-green-dark: #46a302;
+      --color-green-light: #d7ffb8;
+      
+      --color-fire: #ff9600;
+      --color-fire-dark: #cc7800;
+      --color-fire-light: #ffebc8;
+
+      --color-heart: #ff4b4b;
+      --color-heart-dark: #d33131;
+      --color-heart-light: #ffdfe0;
+
+      --color-blue: #1cb0f6;
+      --color-blue-dark: #1899d6;
+      --color-blue-light: #ddf4ff;
+
+      --color-purple: #ce82ff;
+      --color-purple-dark: #a855f7;
+
+      --color-gold: #ffc800;
+      --color-gold-dark: #e5a500;
+
+      --color-bg: #f7f9fa;
+      --color-card: #ffffff;
+      --color-border: #e5e5e5;
+      --color-border-dark: #cfcfcf;
+      --color-text: #3c3c3c;
+      --color-text-light: #777777;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 999px;
+
+      --font-main: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ==================== COMMON 3D BUTTONS ==================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-main);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: var(--radius-md);
+      padding: 12px 24px;
+      font-size: 15px;
+      gap: 8px;
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(4px);
+      box-shadow: none !important;
+    }
+
+    .btn-green {
+      background-color: var(--color-green);
+      color: #ffffff;
+      box-shadow: 0 4px 0 var(--color-green-dark);
+    }
+    .btn-green:hover:not(:disabled) {
+      filter: brightness(1.05);
+    }
+
+    .btn-blue {
+      background-color: var(--color-blue);
+      color: #ffffff;
+      box-shadow: 0 4px 0 var(--color-blue-dark);
+    }
+
+    .btn-fire {
+      background-color: var(--color-fire);
+      color: #ffffff;
+      box-shadow: 0 4px 0 var(--color-fire-dark);
+    }
+
+    .btn-gray {
+      background-color: #e5e5e5;
+      color: #afafaf;
+      box-shadow: 0 4px 0 #cfcfcf;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: white;
+      color: var(--color-blue);
+      border: 2px solid var(--color-border);
+      box-shadow: 0 3px 0 var(--color-border-dark);
+    }
+    .btn-outline:hover {
+      background: #f1f7ff;
+    }
+
+    /* ==================== HEADER & TOP STATS ==================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--color-border);
+      padding: 12px 24px;
+    }
+
+    .header-content {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: var(--color-green);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 0 var(--color-green-dark);
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--color-green);
+      letter-spacing: -0.5px;
+    }
+
+    .stats-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 2px solid var(--color-border);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .stat-pill:hover {
+      transform: translateY(-2px);
+      border-color: var(--color-border-dark);
+    }
+
+    .stat-streak {
+      color: var(--color-fire);
+      border-color: #ffdcb0;
+      background: #fffcf8;
+    }
+    .stat-streak.active-today {
+      background: var(--color-fire-light);
+      border-color: var(--color-fire);
+    }
+
+    .streak-icon {
+      font-size: 20px;
+      display: inline-block;
+      animation: flamePulse 1.8s infinite ease-in-out;
+    }
+
+    .stat-gem {
+      color: var(--color-blue);
+    }
+
+    .stat-heart {
+      color: var(--color-heart);
+    }
+
+    /* Language Switcher Dropdown */
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .flag-icon {
+      font-size: 20px;
+    }
+
+    /* ==================== MAIN LEARNING VIEW ==================== */
+    main {
+      flex: 1;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 80px 20px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 32px;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    /* Learning Tree / Path */
+    .path-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .unit-banner {
+      width: 100%;
+      background: linear-gradient(135deg, var(--color-green) 0%, var(--color-green-dark) 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 0 var(--color-green-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .unit-banner::after {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -20px;
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .unit-header h3 {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .unit-header p {
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    .lessons-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /* Stepping Stone Nodes */
+    .lesson-node-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Staggered Zig-Zag positioning like Duolingo */
+    .lesson-node-wrapper:nth-child(2) { transform: translateX(-45px); }
+    .lesson-node-wrapper:nth-child(3) { transform: translateX(45px); }
+    .lesson-node-wrapper:nth-child(4) { transform: translateX(0px); }
+    .lesson-node-wrapper:nth-child(5) { transform: translateX(-40px); }
+
+    .lesson-btn {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+      background: var(--color-green);
+      box-shadow: 0 8px 0 var(--color-green-dark);
+      color: white;
+    }
+
+    .lesson-btn:active {
+      transform: translateY(6px);
+      box-shadow: 0 2px 0 var(--color-green-dark);
+    }
+
+    .lesson-btn.completed {
+      background: var(--color-gold);
+      box-shadow: 0 8px 0 var(--color-gold-dark);
+    }
+    .lesson-btn.completed:active {
+      box-shadow: 0 2px 0 var(--color-gold-dark);
+    }
+
+    .lesson-btn.locked {
+      background: #e5e5e5;
+      box-shadow: 0 8px 0 #cfcfcf;
+      color: #999;
+      cursor: not-allowed;
+    }
+    .lesson-btn.locked:active {
+      transform: none;
+    }
+
+    .crown-badge {
+      position: absolute;
+      top: -10px;
+      right: -6px;
+      background: white;
+      border: 2px solid var(--color-gold-dark);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .lesson-title-tooltip {
+      margin-top: 10px;
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 4px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--color-text);
+      white-space: nowrap;
+      box-shadow: 0 2px 0 var(--color-border);
+    }
+
+    /* ==================== SIDEBAR ==================== */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .side-card {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .streak-widget-card {
+      border-color: #ffdcb0;
+      background: linear-gradient(180deg, #fffaf2 0%, #ffffff 100%);
+    }
+
+    .streak-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .streak-big-stat {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .streak-big-icon {
+      font-size: 40px;
+      animation: flamePulse 1.5s infinite ease-in-out;
+    }
+
+    .streak-big-text h4 {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--color-fire);
+      line-height: 1;
+    }
+
+    .streak-big-text p {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-light);
+    }
+
+    .streak-days-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .day-circle-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .day-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #999;
+      border: 2px solid #e0e0e0;
+      transition: all 0.2s;
+    }
+
+    .day-circle.done {
+      background: var(--color-fire);
+      color: white;
+      border-color: var(--color-fire-dark);
+      box-shadow: 0 2px 0 var(--color-fire-dark);
+    }
+
+    .day-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--color-text-light);
+    }
+
+    /* Mascot Speech Card */
+    .mascot-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #eef9e8;
+      border-color: #bbf099;
+    }
+
+    .mascot-avatar {
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+    }
+
+    .mascot-bubble {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #316d00;
+    }
+
+    /* ==================== QUIZ SCREEN (OVERLAY MODAL) ==================== */
+    .quiz-overlay {
+      position: fixed;
+      inset: 0;
+      background: white;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .quiz-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .quiz-header {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .quiz-close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #999;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .quiz-close-btn:hover {
+      color: var(--color-text);
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      height: 16px;
+      background: #e5e5e5;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--color-green);
+      border-radius: var(--radius-pill);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .quiz-hearts {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--color-heart);
+    }
+
+    .quiz-body {
+      flex: 1;
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+      overflow-y: auto;
+    }
+
+    .quiz-prompt-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--color-text);
+    }
+
+    .audio-speech-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .btn-audio {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: var(--color-blue);
+      border: none;
+      box-shadow: 0 4px 0 var(--color-blue-dark);
+      color: white;
+      cursor: pointer;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s;
+    }
+    .btn-audio:active {
+      transform: translateY(4px);
+      box-shadow: none;
+    }
+
+    .btn-audio-slow {
+      width: 40px;
+      height: 40px;
+      background: #bce9ff;
+      color: var(--color-blue-dark);
+      box-shadow: 0 3px 0 #9fd4ec;
+      font-size: 18px;
+    }
+
+    .audio-display-text {
+      font-size: 22px;
+      font-weight: 800;
+      color: #2b2b2b;
+      letter-spacing: 0.3px;
+    }
+
+    .hanzi-highlight {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--color-heart-dark);
+      display: block;
+    }
+
+    .pinyin-sub {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0284c7;
+      display: block;
+      margin-top: -2px;
+    }
+
+    /* Options Grid (Multiple Choice) */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 540px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-card {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 0 var(--color-border-dark);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--color-text);
+      transition: all 0.12s;
+    }
+
+    .option-card:hover {
+      background: #f7fbff;
+      border-color: #8cd8ff;
+    }
+
+    .option-card.selected {
+      background: var(--color-blue-light);
+      border-color: var(--color-blue);
+      box-shadow: 0 4px 0 var(--color-blue-dark);
+      color: var(--color-blue-dark);
+    }
+
+    .option-card:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--color-border-dark);
+    }
+
+    .option-emoji {
+      font-size: 24px;
+    }
+
+    /* Word Bank Styles */
+    .sentence-drop-area {
+      min-height: 70px;
+      border-bottom: 2px solid var(--color-border);
+      padding: 10px 0 16px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .word-pool-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .word-tile {
+      background: white;
+      border: 2px solid var(--color-border);
+      box-shadow: 0 3px 0 var(--color-border-dark);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .word-tile:hover {
+      background: #f0f7ff;
+    }
+    .word-tile:active {
+      transform: translateY(3px);
+      box-shadow: none;
+    }
+    .word-tile.slotted {
+      opacity: 0.3;
+      pointer-events: none;
+      background: #e9ecef;
+      border-color: #dee2e6;
+      box-shadow: none;
+    }
+
+    /* Match Pairs Grid */
+    .match-pairs-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .match-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .match-item {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 3px 0 var(--color-border-dark);
+      padding: 14px 16px;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.12s;
+    }
+    .match-item.selected {
+      background: var(--color-blue-light);
+      border-color: var(--color-blue);
+      box-shadow: 0 3px 0 var(--color-blue-dark);
+      color: var(--color-blue-dark);
+    }
+    .match-item.matched {
+      background: #e5e5e5;
+      color: #999;
+      border-color: #cfcfcf;
+      box-shadow: none;
+      pointer-events: none;
+    }
+
+    /* Bottom Feedback Bar */
+    .quiz-bottom-bar {
+      border-top: 2px solid var(--color-border);
+      padding: 20px 24px;
+      background: white;
+      transition: background-color 0.2s;
+    }
+
+    .bottom-bar-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .quiz-bottom-bar.correct {
+      background: var(--color-green-light);
+      border-top-color: #b3f57f;
+    }
+
+    .quiz-bottom-bar.wrong {
+      background: var(--color-heart-light);
+      border-top-color: #fca5a5;
+    }
+
+    .feedback-message {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .feedback-icon-bubble {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .feedback-text h4 {
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .quiz-bottom-bar.correct .feedback-text h4 {
+      color: #3b8700;
+    }
+    .quiz-bottom-bar.wrong .feedback-text h4 {
+      color: var(--color-heart-dark);
+    }
+
+    .feedback-text p {
+      font-size: 14px;
+      font-weight: 700;
+      color: #4b5563;
+    }
+
+    /* ==================== CELEBRATION & MODALS ==================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      max-width: 440px;
+      width: 100%;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Streak Celebration Modal Specifics */
+    .streak-fire-anim {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffe600 0%, #ff9600 70%, #ff4b4b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      box-shadow: 0 0 40px rgba(255, 150, 0, 0.6);
+      animation: streakBurst 0.9s infinite alternate ease-in-out;
+    }
+
+    .streak-big-number {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--color-fire);
+      margin-top: -6px;
+      letter-spacing: -1px;
+    }
+
+    .stat-badge-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .stat-badge {
+      flex: 1;
+      background: #f7f9fa;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+    }
+
+    .stat-badge h5 {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--color-text-light);
+      text-transform: uppercase;
+    }
+
+    .stat-badge span {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--color-text);
+    }
+
+    /* Language Switcher Modal */
+    .lang-option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .lang-option-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 3px 0 var(--color-border-dark);
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 16px;
+      transition: all 0.12s;
+    }
+
+    .lang-option-item:hover {
+      background: #f5f9ff;
+      border-color: var(--color-blue);
+    }
+
+    .lang-option-item.active {
+      border-color: var(--color-green);
+      background: var(--color-green-light);
+      box-shadow: 0 3px 0 var(--color-green-dark);
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 250;
+    }
+
+    /* ==================== KEYFRAME ANIMATIONS ==================== */
+    @keyframes flamePulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(255,150,0,0.4)); }
+      50% { transform: scale(1.18) rotate(-4deg); filter: drop-shadow(0 0 10px rgba(255,150,0,0.8)); }
+    }
+
+    @keyframes streakBurst {
+      0% { transform: scale(0.96) rotate(-2deg); box-shadow: 0 0 25px rgba(255,150,0,0.5); }
+      100% { transform: scale(1.08) rotate(3deg); box-shadow: 0 0 50px rgba(255,150,0,0.9); }
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .shake-animation {
+      animation: shake 0.4s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header>
+    <div class="header-content">
+      <div class="brand" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <div class="brand-logo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+          </svg>
+        </div>
+        <span class="brand-title">DuoBelajar</span>
+      </div>
+
+      <div class="stats-nav">
+        <!-- Language Switcher -->
+        <button class="lang-btn" id="langPickerBtn" onclick="openLanguageModal()">
+          <span class="flag-icon" id="headerFlag">🇬🇧</span>
+          <span id="headerLangName">Inggris</span>
+          <span style="font-size: 11px;">▼</span>
+        </button>
+
+        <!-- Streak Pill -->
+        <div class="stat-pill stat-streak" id="streakPill" onclick="openStreakModal()" title="Streak Harianmu">
+          <span class="streak-icon">🔥</span>
+          <span id="streakCountText">0</span>
+        </div>
+
+        <!-- Gems -->
+        <div class="stat-pill stat-gem" title="Permata XP">
+          <span>💎</span>
+          <span id="gemCountText">150</span>
+        </div>
+
+        <!-- Hearts -->
+        <div class="stat-pill stat-heart" onclick="refillHearts()" title="Nyawa / Hati (Klik untuk isi)">
+          <span>❤️</span>
+          <span id="heartCountText">5</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN LEARNING VIEW ==================== -->
+  <main>
+    <div class="path-container" id="pathContainer">
+      <!-- Dynamic Unit Banners & Lesson Nodes Rendered by JS -->
+    </div>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar">
+      <!-- Streak Status Card -->
+      <div class="side-card streak-widget-card">
+        <div class="streak-card-header">
+          <span style="font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--color-fire);">Target Harian</span>
+          <span id="streakStateBadge" style="font-size: 12px; font-weight: 800; color: #888;">Belum Selesai</span>
+        </div>
+        
+        <div class="streak-big-stat">
+          <div class="streak-big-icon">🔥</div>
+          <div class="streak-big-text">
+            <h4 id="sideStreakNumber">0 Hari</h4>
+            <p>Streak Belajar Aktif</p>
+          </div>
+        </div>
+
+        <div class="streak-days-row" id="streakDaysRow">
+          <!-- Mon-Sun circles rendered dynamically -->
+        </div>
+
+        <button class="btn btn-fire" style="width: 100%; font-size: 13px; padding: 10px;" onclick="openStreakModal()">
+          Lihat Kalender Streak
+        </button>
+      </div>
+
+      <!-- Mascot Companion Card -->
+      <div class="side-card mascot-card">
+        <svg class="mascot-avatar" viewBox="0 0 100 100">
+          <!-- Cute Owl Mascot SVG -->
+          <ellipse cx="50" cy="52" rx="36" ry="40" fill="#58cc02" />
+          <ellipse cx="50" cy="62" rx="26" ry="26" fill="#78e026" />
+          <!-- Eyes -->
+          <circle cx="36" cy="42" r="14" fill="#ffffff" />
+          <circle cx="64" cy="42" r="14" fill="#ffffff" />
+          <circle cx="38" cy="42" r="6" fill="#3c3c3c" />
+          <circle cx="62" cy="42" r="6" fill="#3c3c3c" />
+          <circle cx="40" cy="40" r="2.5" fill="#ffffff" />
+          <circle cx="64" cy="40" r="2.5" fill="#ffffff" />
+          <!-- Beak -->
+          <polygon points="50,47 43,55 57,55" fill="#ff9600" />
+          <!-- Cheeks -->
+          <circle cx="26" cy="54" r="5" fill="#ffc800" opacity="0.6" />
+          <circle cx="74" cy="54" r="5" fill="#ffc800" opacity="0.6" />
+          <!-- Feet -->
+          <ellipse cx="38" cy="92" rx="8" ry="4" fill="#ff9600" />
+          <ellipse cx="62" cy="92" rx="8" ry="4" fill="#ff9600" />
+        </svg>
+        <div class="mascot-bubble" id="mascotSpeech">
+          "Selesaikan 1 pelajaran hari ini untuk menyalakan apimu! 🔥"
+        </div>
+      </div>
+
+      <!-- Quick Practice & Hearts Refill -->
+      <div class="side-card">
+        <h4 style="font-weight: 800; font-size: 16px;">Habis Hati? ❤️</h4>
+        <p style="font-size: 13px; color: var(--color-text-light);">Isi kembali nyawamu untuk terus belajar tanpa henti.</p>
+        <button class="btn btn-outline" onclick="refillHearts()">❤️ Isi Penuh Nyawa (Gratis)</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ==================== QUIZ SCREEN (FULLSCREEN OVERLAY) ==================== -->
+  <div class="quiz-overlay" id="quizOverlay">
+    <div class="quiz-header">
+      <button class="quiz-close-btn" onclick="confirmExitQuiz()" title="Keluar">✕</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="quizProgressBar"></div>
+      </div>
+      <div class="quiz-hearts">
+        <span>❤️</span>
+        <span id="quizHeartCount">5</span>
+      </div>
+    </div>
+
+    <div class="quiz-body" id="quizBody">
+      <!-- Dynamic Question Content Injected by QuizEngine -->
+    </div>
+
+    <div class="quiz-bottom-bar" id="quizBottomBar">
+      <div class="bottom-bar-inner">
+        <div class="feedback-message" id="feedbackMessage" style="display: none;">
+          <div class="feedback-icon-bubble" id="feedbackIcon">✓</div>
+          <div class="feedback-text">
+            <h4 id="feedbackTitle">Luar Biasa!</h4>
+            <p id="feedbackDesc">Jawabanmu tepat sekali.</p>
+          </div>
+        </div>
+        <button class="btn btn-gray" id="quizCheckBtn" onclick="handleQuizAction()">
+          PERIKSA
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STREAK CELEBRATION MODAL ==================== -->
+  <div class="modal-backdrop" id="streakModal">
+    <div class="modal-card">
+      <div class="streak-fire-anim">🔥</div>
+      <div>
+        <h2 style="font-size: 26px; font-weight: 900; color: var(--color-text);">Streak Menyala!</h2>
+        <div class="streak-big-number" id="modalStreakCount">1 Hari</div>
+        <p style="font-size: 14px; font-weight: 700; color: var(--color-text-light); margin-top: 4px;" id="modalStreakSub">
+          Luar biasa! Kamu telah menyelesaikan pelajaran hari ini.
+        </p>
+      </div>
+
+      <div class="stat-badge-row">
+        <div class="stat-badge">
+          <h5>Total XP</h5>
+          <span id="modalTotalXp">+20 XP</span>
+        </div>
+        <div class="stat-badge">
+          <h5>Bonus Permata</h5>
+          <span id="modalBonusGems">+15 💎</span>
+        </div>
+      </div>
+
+      <div style="width: 100%; text-align: left; background: #fbfbfb; border: 2px solid var(--color-border); border-radius: var(--radius-md); padding: 14px;">
+        <h5 style="font-size: 12px; font-weight: 800; color: #777; margin-bottom: 8px;">AKTIVITAS MINGGU INI</h5>
+        <div class="streak-days-row" id="modalWeekDays"></div>
+      </div>
+
+      <button class="btn btn-green" style="width: 100%; font-size: 16px; padding: 14px;" onclick="closeStreakModal()">
+        LANJUTKAN BELAJAR
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== LANGUAGE SELECTOR MODAL ==================== -->
+  <div class="modal-backdrop" id="langModal">
+    <div class="modal-card">
+      <h3 style="font-size: 22px; font-weight: 900;">Pilih Bahasa Kursus</h3>
+      <p style="font-size: 14px; color: var(--color-text-light); margin-top: -10px;">
+        Ganti bahasa kapan saja, kemajuan belajarmu tersimpan otomatis!
+      </p>
+
+      <div class="lang-option-list">
+        <div class="lang-option-item" onclick="switchLanguage('english')" id="langOption-english">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 28px;">🇬🇧</span>
+            <div style="text-align: left;">
+              <div>Bahasa Inggris</div>
+              <span style="font-size: 12px; font-weight: 600; color: #777;">Greetings, Food & Travel</span>
+            </div>
+          </div>
+          <span class="active-badge" style="font-size: 18px;"></span>
+        </div>
+
+        <div class="lang-option-item" onclick="switchLanguage('mandarin')" id="langOption-mandarin">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 28px;">🇨🇳</span>
+            <div style="text-align: left;">
+              <div>Bahasa Mandarin</div>
+              <span style="font-size: 12px; font-weight: 600; color: #777;">Hanzi, Pinyin, Sapaan & Belanja</span>
+            </div>
+          </div>
+          <span class="active-badge" style="font-size: 18px;"></span>
+        </div>
+
+        <div class="lang-option-item" onclick="switchLanguage('spanish')" id="langOption-spanish">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 28px;">🇪🇸</span>
+            <div style="text-align: left;">
+              <div>Bahasa Spanyol</div>
+              <span style="font-size: 12px; font-weight: 600; color: #777;">Saludos, Comida & Frases</span>
+            </div>
+          </div>
+          <span class="active-badge" style="font-size: 18px;"></span>
+        </div>
+      </div>
+
+      <button class="btn btn-outline" style="width: 100%; margin-top: 6px;" onclick="closeLanguageModal()">
+        TUTUP
+      </button>
+    </div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ==================== JAVASCRIPT APPLICATION CODE ==================== -->
+  <script>
+    /* ==========================================================================
+       1. WEB AUDIO SYNTHESIZER (Tanpa aset eksternal, berbunyi seketika!)
+       ========================================================================== */
+    class SoundController {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playPop() {
+        this.init();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const now = this.ctx.currentTime;
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(380, now);
+        osc.frequency.exponentialRampToValueAtTime(750, now + 0.05);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.07);
+      }
+      playCorrect() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Duolingo chime)
+        freqs.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const st = now + (idx * 0.075);
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, st);
+          gain.gain.setValueAtTime(0.24, st);
+          gain.gain.exponentialRampToValueAtTime(0.001, st + 0.22);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(st);
+          osc.stop(st + 0.24);
+        });
+      }
+      playWrong() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [220, 200].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const st = now + (idx * 0.12);
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, st);
+          osc.frequency.exponentialRampToValueAtTime(freq * 0.85, st + 0.18);
+          gain.gain.setValueAtTime(0.16, st);
+          gain.gain.exponentialRampToValueAtTime(0.01, st + 0.18);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(st);
+          osc.stop(st + 0.19);
+        });
+      }
+      playStreak() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [392, 523.25, 659.25, 783.99, 1046.5, 1318.5]; // G4 to E6
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const st = now + (idx * 0.07);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, st);
+          gain.gain.setValueAtTime(0.25, st);
+          gain.gain.exponentialRampToValueAtTime(0.005, st + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(st);
+          osc.stop(st + 0.36);
+        });
+      }
+    }
+    const sound = new SoundController();
+
+    /* ==========================================================================
+       2. TEXT-TO-SPEECH CONTROLLER (Pelafalan kata dengan Web Speech API)
+       ========================================================================== */
+    class SpeechController {
+      constructor() {
+        this.synth = window.speechSynthesis || null;
+      }
+      speak(text, langCode = 'en-US', slow = false) {
+        if (!this.synth) return;
+        this.synth.cancel();
+        // Bersihkan pinyin atau kurung bantuan agar audio melafalkan kata asli
+        const clean = text.replace(/\(.*?\)/g, '').trim();
+        const utt = new SpeechSynthesisUtterance(clean);
+        utt.lang = langCode;
+        utt.rate = slow ? 0.65 : 0.95;
+        this.synth.speak(utt);
+      }
+    }
+    const speech = new SpeechController();
+
+    /* ==========================================================================
+       3. DATA KURIKULUM & SOAL (Inggris, Mandarin, Spanyol)
+       ========================================================================== */
+    const COURSES = {
+      english: {
+        id: 'english',
+        name: 'Bahasa Inggris',
+        flag: '🇬🇧',
+        code: 'en-US',
+        units: [
+          {
+            id: 'en_u1',
+            title: 'Unit 1: Sapaan & Perkenalan',
+            desc: 'Kuasai sapaan dasar, perkenalan diri, dan tata krama.',
+            color: '#58cc02',
+            lessons: [
+              {
+                id: 'en_l1',
+                title: 'Sapaan Umum',
+                icon: '👋',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Bagaimana cara mengucapkan "Halo" dalam bahasa Inggris?',
+                    audioText: 'Hello',
+                    options: [
+                      { text: 'Hello', isCorrect: true, emoji: '👋' },
+                      { text: 'Goodbye', isCorrect: false, emoji: '🚶' },
+                      { text: 'Please', isCorrect: false, emoji: '🙏' },
+                      { text: 'Thanks', isCorrect: false, emoji: '✨' }
+                    ],
+                    explanation: '"Hello" adalah sapaan paling umum dalam bahasa Inggris.'
+                  },
+                  {
+                    type: 'word-bank',
+                    prompt: 'Susun kalimat: "Selamat pagi, nama saya John"',
+                    audioText: 'Good morning my name is John',
+                    targetWords: ['Good', 'morning', 'my', 'name', 'is', 'John'],
+                    poolWords: ['Good', 'morning', 'night', 'my', 'is', 'name', 'John'],
+                    explanation: '"Good morning" = Selamat pagi, "my name is..." = nama saya adalah...'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan kata-kata berikut dengan artinya:',
+                    pairs: [
+                      { source: 'Hello', target: 'Halo' },
+                      { source: 'Thank you', target: 'Terima kasih' },
+                      { source: 'Goodbye', target: 'Selamat tinggal' },
+                      { source: 'Please', target: 'Tolong / Silakan' }
+                    ],
+                    explanation: 'Pasangan sapaan dasar telah dicocokkan dengan sempurna!'
+                  },
+                  {
+                    type: 'listening',
+                    prompt: 'Dengarkan kalimat berikut dan pilih artinya:',
+                    audioText: 'Nice to meet you',
+                    options: [
+                      { text: 'Senang berkenalan denganmu', isCorrect: true, emoji: '🤝' },
+                      { text: 'Sampai bertemu besok pagi', isCorrect: false, emoji: '🌅' },
+                      { text: 'Apa kabarmu hari ini?', isCorrect: false, emoji: '💬' },
+                      { text: 'Selamat beristirahat', isCorrect: false, emoji: '🌙' }
+                    ],
+                    explanation: '"Nice to meet you" diucapkan saat pertama berkenalan.'
+                  }
+                ]
+              },
+              {
+                id: 'en_l2',
+                title: 'Percakapan Santai',
+                icon: '💬',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Apa arti dari pertanyaan "How are you?"',
+                    audioText: 'How are you?',
+                    options: [
+                      { text: 'Bagaimana kabarmu?', isCorrect: true, emoji: '😊' },
+                      { text: 'Siapa namamu?', isCorrect: false, emoji: '❓' },
+                      { text: 'Dari mana asalmu?', isCorrect: false, emoji: '🌍' },
+                      { text: 'Berapa umurmu?', isCorrect: false, emoji: '🎂' }
+                    ],
+                    explanation: '"How are you?" digunakan untuk menanyakan kabar seseorang.'
+                  },
+                  {
+                    type: 'word-bank',
+                    prompt: 'Susun kalimat: "Saya sangat baik, terima kasih"',
+                    audioText: 'I am very good thank you',
+                    targetWords: ['I', 'am', 'very', 'good', 'thank', 'you'],
+                    poolWords: ['I', 'am', 'not', 'very', 'good', 'bad', 'thank', 'you'],
+                    explanation: '"I am very good, thank you" = Saya sangat baik, terima kasih.'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan ungkapan sehari-hari:',
+                    pairs: [
+                      { source: 'See you', target: 'Sampai jumpa' },
+                      { source: 'Excuse me', target: 'Permisi' },
+                      { source: 'Sorry', target: 'Maaf' },
+                      { source: 'Welcome', target: 'Sama-sama' }
+                    ],
+                    explanation: 'Semua ungkapan santai telah dipasangkan dengan tepat!'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'en_u2',
+            title: 'Unit 2: Makanan & Kafe',
+            desc: 'Belajar memesan makanan dan minuman dengan santun.',
+            color: '#ff9600',
+            lessons: [
+              {
+                id: 'en_l3',
+                title: 'Di Kafe & Minuman',
+                icon: '☕',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Pilih arti dari "I would like a cup of coffee":',
+                    audioText: 'I would like a cup of coffee',
+                    options: [
+                      { text: 'Saya ingin secangkir kopi', isCorrect: true, emoji: '☕' },
+                      { text: 'Saya minum air dingin', isCorrect: false, emoji: '💧' },
+                      { text: 'Saya suka teh manis', isCorrect: false, emoji: '🍵' },
+                      { text: 'Beri saya sarapan pagi', isCorrect: false, emoji: '🥐' }
+                    ],
+                    explanation: '"I would like..." adalah bentuk sopan untuk memesan pesanan.'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan makanan dan minuman:',
+                    pairs: [
+                      { source: 'Water', target: 'Air' },
+                      { source: 'Bread', target: 'Roti' },
+                      { source: 'Tea', target: 'Teh' },
+                      { source: 'Bill', target: 'Tagihan' }
+                    ],
+                    explanation: 'Kosakata kafe telah cocok!'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      mandarin: {
+        id: 'mandarin',
+        name: 'Bahasa Mandarin',
+        flag: '🇨🇳',
+        code: 'zh-CN',
+        units: [
+          {
+            id: 'zh_u1',
+            title: 'Unit 1: Sapaan Dasar (问候)',
+            desc: 'Aksara Hanzi, nada Pinyin, dan ungkapan kesopanan pertama.',
+            color: '#ff4b4b',
+            lessons: [
+              {
+                id: 'zh_l1',
+                title: 'Halo & Terima Kasih',
+                icon: '🇨🇳',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Pilih Hanzi dan Pinyin untuk mengucapkan "Halo":',
+                    audioText: '你好',
+                    options: [
+                      { text: '你好 (Nǐ hǎo)', isCorrect: true, emoji: '👋' },
+                      { text: '再见 (Zàijiàn)', isCorrect: false, emoji: '🚶' },
+                      { text: '谢谢 (Xièxie)', isCorrect: false, emoji: '🙏' },
+                      { text: '对不起 (Duìbuqǐ)', isCorrect: false, emoji: '😔' }
+                    ],
+                    explanation: '你好 (Nǐ hǎo) tersusun dari 你 (kamu) + 好 (baik) = Halo!'
+                  },
+                  {
+                    type: 'word-bank',
+                    prompt: 'Susun kalimat: "Terima kasih banyak"',
+                    audioText: '非常感谢',
+                    targetWords: ['非常', '感谢'],
+                    poolWords: ['非常 (fēicháng)', '感谢 (gǎnxiè)', '你好 (nǐhǎo)', '再见 (zàijiàn)'],
+                    explanation: '非常 (fēicháng = sangat) + 感谢 (gǎnxiè = berterima kasih).'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan Hanzi dengan artinya:',
+                    pairs: [
+                      { source: '你好 (Nǐ hǎo)', target: 'Halo' },
+                      { source: '谢谢 (Xièxie)', target: 'Terima kasih' },
+                      { source: '再见 (Zàijiàn)', target: 'Sampai jumpa' },
+                      { source: '对不起 (Duìbuqǐ)', target: 'Maaf' }
+                    ],
+                    explanation: 'Semua sapaan Mandarin telah dipasangkan dengan tepat!'
+                  },
+                  {
+                    type: 'listening',
+                    prompt: 'Dengarkan audio dan tebak kata yang diucapkan:',
+                    audioText: '再见',
+                    options: [
+                      { text: '再见 (Zàijiàn - Sampai jumpa)', isCorrect: true, emoji: '👋' },
+                      { text: '你好 (Nǐ hǎo - Halo)', isCorrect: false, emoji: '😊' },
+                      { text: '不客气 (Bú kèqi - Sama-sama)', isCorrect: false, emoji: '✨' },
+                      { text: '早上好 (Zǎoshang hǎo - Pagi)', isCorrect: false, emoji: '☀️' }
+                    ],
+                    explanation: '再见 (Zàijiàn) artinya sampai bertemu kembali.'
+                  }
+                ]
+              },
+              {
+                id: 'zh_l2',
+                title: 'Perkenalan Diri (我是...)',
+                icon: '🙋',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Apa arti dari kata "我" (Wǒ)?',
+                    audioText: '我',
+                    options: [
+                      { text: 'Saya / Aku', isCorrect: true, emoji: '🙋' },
+                      { text: 'Kamu (Nǐ)', isCorrect: false, emoji: '👉' },
+                      { text: 'Dia (Tā)', isCorrect: false, emoji: '👤' },
+                      { text: 'Kalian (Nǐmen)', isCorrect: false, emoji: '👥' }
+                    ],
+                    explanation: '我 (Wǒ) adalah kata ganti orang pertama (Saya/Aku).'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan kata ganti Mandarin:',
+                    pairs: [
+                      { source: '我 (Wǒ)', target: 'Saya' },
+                      { source: '你 (Nǐ)', target: 'Kamu' },
+                      { source: '他 (Tā)', target: 'Dia (Laki-laki)' },
+                      { source: '我们 (Wǒmen)', target: 'Kami / Kita' }
+                    ],
+                    explanation: 'Kata ganti Mandarin telah tepat!'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'zh_u2',
+            title: 'Unit 2: Belanja & Angka (数字与购物)',
+            desc: 'Angka 1-10 dan cara menanyakan harga di pasar.',
+            color: '#ce82ff',
+            lessons: [
+              {
+                id: 'zh_l3',
+                title: 'Berapa Harganya?',
+                icon: '🏷️',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Bagaimana cara menanyakan "Berapa harganya?"',
+                    audioText: '这个多少钱',
+                    options: [
+                      { text: '这个多少钱？ (Zhège duōshao qián?)', isCorrect: true, emoji: '🏷️' },
+                      { text: '你在哪里？ (Nǐ zài nǎlǐ?)', isCorrect: false, emoji: '📍' },
+                      { text: '什么名字？ (Shénme míngzi?)', isCorrect: false, emoji: '❓' },
+                      { text: '太好吃了 (Tài hǎochī le)', isCorrect: false, emoji: '🍜' }
+                    ],
+                    explanation: '多少钱 (duōshao qián) = Berapa uang / harganya.'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan angka Hanzi:',
+                    pairs: [
+                      { source: '一 (Yī)', target: 'Satu (1)' },
+                      { source: '二 (Èr)', target: 'Dua (2)' },
+                      { source: '三 (Sān)', target: 'Tiga (3)' },
+                      { source: '十 (Shí)', target: 'Sepuluh (10)' }
+                    ],
+                    explanation: 'Angka-angka Hanzi dasar telah dicocokkan!'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      spanish: {
+        id: 'spanish',
+        name: 'Bahasa Spanyol',
+        flag: '🇪🇸',
+        code: 'es-ES',
+        units: [
+          {
+            id: 'es_u1',
+            title: 'Unit 1: Saludos & Dasar (Sapaan)',
+            desc: 'Mulai berbicara bahasa Spanyol dengan sapaan hangat.',
+            color: '#1cb0f6',
+            lessons: [
+              {
+                id: 'es_l1',
+                title: '¡Hola! & Sapaan Dasar',
+                icon: '🇪🇸',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Bagaimana cara menyapa "Halo" dalam bahasa Spanyol?',
+                    audioText: 'Hola',
+                    options: [
+                      { text: '¡Hola!', isCorrect: true, emoji: '👋' },
+                      { text: 'Adiós', isCorrect: false, emoji: '🚶' },
+                      { text: 'Gracias', isCorrect: false, emoji: '🙏' },
+                      { text: 'Por favor', isCorrect: false, emoji: '✨' }
+                    ],
+                    explanation: '¡Hola! adalah sapaan ramah Spanyol paling populer di dunia.'
+                  },
+                  {
+                    type: 'word-bank',
+                    prompt: 'Susun kalimat: "Selamat pagi, apa kabar?"',
+                    audioText: 'Buenos días ¿cómo estás?',
+                    targetWords: ['Buenos', 'días,', '¿cómo', 'estás?'],
+                    poolWords: ['Buenos', 'noches,', 'días,', '¿cómo', 'estás?', 'hola'],
+                    explanation: '"Buenos días" = Selamat pagi, "¿cómo estás?" = bagaimana kabarmu?'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan kata Spanyol dengan artinya:',
+                    pairs: [
+                      { source: '¡Hola!', target: 'Halo!' },
+                      { source: 'Gracias', target: 'Terima kasih' },
+                      { source: 'Adiós', target: 'Selamat tinggal' },
+                      { source: 'Por favor', target: 'Tolong / Silakan' }
+                    ],
+                    explanation: 'Sapaan Spanyol telah dicocokkan dengan benar!'
+                  },
+                  {
+                    type: 'listening',
+                    prompt: 'Dengarkan kalimat Spanyol ini dan pilih artinya:',
+                    audioText: 'Mucho gusto',
+                    options: [
+                      { text: 'Senang berkenalan denganmu (Mucho gusto)', isCorrect: true, emoji: '🤝' },
+                      { text: 'Sampai jumpa besok (Hasta mañana)', isCorrect: false, emoji: '🌅' },
+                      { text: 'Berapa harganya?', isCorrect: false, emoji: '🏷️' },
+                      { text: 'Saya tidak paham', isCorrect: false, emoji: '❓' }
+                    ],
+                    explanation: '"Mucho gusto" diucapkan saat pertama kali berkenalan.'
+                  }
+                ]
+              },
+              {
+                id: 'es_l2',
+                title: 'Ungkapan Sehari-hari',
+                icon: '🌟',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Bagaimana cara membalas ucapan "Gracias" (Terima kasih)?',
+                    audioText: 'De nada',
+                    options: [
+                      { text: 'De nada (Sama-sama)', isCorrect: true, emoji: '😊' },
+                      { text: 'Lo siento (Maaf)', isCorrect: false, emoji: '😔' },
+                      { text: 'Hasta luego (Sampai jumpa)', isCorrect: false, emoji: '👋' },
+                      { text: 'Buenas noches (Malam)', isCorrect: false, emoji: '🌙' }
+                    ],
+                    explanation: '"De nada" secara harfiah berarti "bukan apa-apa / sama-sama".'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan ungkapan umum:',
+                    pairs: [
+                      { source: 'Sí', target: 'Ya' },
+                      { source: 'No', target: 'Tidak' },
+                      { source: 'Perdón', target: 'Maaf / Permisi' },
+                      { source: 'Amigo', target: 'Teman' }
+                    ],
+                    explanation: 'Kosakata dasar Spanyol tepat!'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'es_u2',
+            title: 'Unit 2: Comida & Restaurante',
+            desc: 'Kosakata makanan lezat dan memesan di restoran.',
+            color: '#58cc02',
+            lessons: [
+              {
+                id: 'es_l3',
+                title: 'Makanan & Minuman',
+                icon: '🍞',
+                questions: [
+                  {
+                    type: 'multiple-choice',
+                    prompt: 'Apa arti dari kata "Agua"?',
+                    audioText: 'Agua',
+                    options: [
+                      { text: 'Air (Agua)', isCorrect: true, emoji: '💧' },
+                      { text: 'Roti (Pan)', isCorrect: false, emoji: '🥖' },
+                      { text: 'Kopi (Café)', isCorrect: false, emoji: '☕' },
+                      { text: 'Apel (Manzana)', isCorrect: false, emoji: '🍎' }
+                    ],
+                    explanation: '"Agua" dalam bahasa Spanyol berarti air minum.'
+                  },
+                  {
+                    type: 'match-pairs',
+                    prompt: 'Cocokkan makanan Spanyol:',
+                    pairs: [
+                      { source: 'Pan', target: 'Roti' },
+                      { source: 'Agua', target: 'Air' },
+                      { source: 'Café', target: 'Kopi' },
+                      { source: 'Manzana', target: 'Apel' }
+                    ],
+                    explanation: 'Makanan Spanyol telah cocok!'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    /* ==========================================================================
+       4. STORAGE & STREAK MANAGEMENT
+       ========================================================================== */
+    class StorageManager {
+      constructor() {
+        this.KEY = 'duobelajar_v1_store';
+        this.state = this.load();
+        this.verifyDailyStreak();
+      }
+
+      getDefault() {
+        return {
+          currentLang: 'english',
+          streak: 0,
+          lastDate: null,
+          history: [], // dates 'YYYY-MM-DD'
+          xp: 0,
+          gems: 150,
+          hearts: 5,
+          completedLessons: {} // { [courseId]: [lessonIds...] }
+        };
+      }
+
+      load() {
+        try {
+          const val = localStorage.getItem(this.KEY);
+          if (val) return { ...this.getDefault(), ...JSON.parse(val) };
+        } catch(e) {}
+        return this.getDefault();
+      }
+
+      save() {
+        try {
+          localStorage.setItem(this.KEY, JSON.stringify(this.state));
+        } catch(e) {}
+      }
+
+      getTodayStr() {
+        const d = new Date();
+        return d.toISOString().split('T')[0];
+      }
+
+      getYesterdayStr() {
+        const d = new Date();
+        d.setDate(d.getDate() - 1);
+        return d.toISOString().split('T')[0];
+      }
+
+      verifyDailyStreak() {
+        const today = this.getTodayStr();
+        const yesterday = this.getYesterdayStr();
+        const last = this.state.lastDate;
+
+        if (!last) return;
+        if (last === today || last === yesterday) {
+          // Streak still valid
+          return;
+        }
+        // Missed more than 1 day -> streak reset to 0
+        if (this.state.streak > 0) {
+          this.state.streak = 0;
+          this.save();
+        }
+      }
+
+      isDoneToday() {
+        return this.state.lastDate === this.getTodayStr();
+      }
+
+      recordLessonDone(lessonId) {
+        const today = this.getTodayStr();
+        const yesterday = this.getYesterdayStr();
+        const last = this.state.lastDate;
+
+        let streakIncremented = false;
+
+        if (last === today) {
+          // Already completed today, streak remains strong!
+          streakIncremented = false;
+        } else {
+          // First lesson today!
+          if (last === yesterday) {
+            this.state.streak += 1;
+          } else {
+            this.state.streak = 1; // start new streak
+          }
+          this.state.lastDate = today;
+          if (!this.state.history.includes(today)) {
+            this.state.history.push(today);
+          }
+          streakIncremented = true;
+        }
+
+        // Add rewards
+        this.state.xp += 20;
+        this.state.gems += 15;
+
+        // Mark lesson completed
+        const lang = this.state.currentLang;
+        if (!this.state.completedLessons[lang]) {
+          this.state.completedLessons[lang] = [];
+        }
+        if (!this.state.completedLessons[lang].includes(lessonId)) {
+          this.state.completedLessons[lang].push(lessonId);
+        }
+
+        this.save();
+        return {
+          streak: this.state.streak,
+          streakIncremented,
+          xpEarned: 20,
+          gemsEarned: 15
+        };
+      }
+    }
+    const storage = new StorageManager();
+
+    /* ==========================================================================
+       5. QUIZ ENGINE LOGIC
+       ========================================================================== */
+    class QuizEngine {
+      constructor() {
+        this.activeCourse = null;
+        this.activeLesson = null;
+        this.currentIndex = 0;
+        this.selectedOption = null;
+        this.slottedWords = [];
+        this.matchedPairs = [];
+        this.selectedMatchLeft = null;
+        this.selectedMatchRight = null;
+        this.isEvaluated = false;
+      }
+
+      start(course, lesson) {
+        if (storage.state.hearts <= 0) {
+          alert('Nyawamu habis! Klik ikon ❤️ di atas untuk mengisi ulang gratis!');
+          return;
+        }
+        this.activeCourse = course;
+        this.activeLesson = lesson;
+        this.currentIndex = 0;
+        this.isEvaluated = false;
+
+        document.getElementById('quizOverlay').classList.add('open');
+        this.renderQuestion();
+      }
+
+      renderQuestion() {
+        this.selectedOption = null;
+        this.slottedWords = [];
+        this.matchedPairs = [];
+        this.selectedMatchLeft = null;
+        this.selectedMatchRight = null;
+        this.isEvaluated = false;
+
+        const q = this.activeLesson.questions[this.currentIndex];
+        const total = this.activeLesson.questions.length;
+        const progressPct = ((this.currentIndex) / total) * 100;
+        
+        document.getElementById('quizProgressBar').style.width = `${progressPct}%`;
+        document.getElementById('quizHeartCount').textContent = storage.state.hearts;
+
+        // Reset bottom bar
+        const bottomBar = document.getElementById('quizBottomBar');
+        bottomBar.className = 'quiz-bottom-bar';
+        document.getElementById('feedbackMessage').style.display = 'none';
+        
+        const checkBtn = document.getElementById('quizCheckBtn');
+        checkBtn.className = 'btn btn-gray';
+        checkBtn.textContent = 'PERIKSA';
+        checkBtn.disabled = true;
+
+        const body = document.getElementById('quizBody');
+        body.innerHTML = '';
+
+        // Auto speak if audio prompt exists
+        if (q.audioText) {
+          setTimeout(() => {
+            speech.speak(q.audioText, this.activeCourse.code);
+          }, 300);
+        }
+
+        // Header Prompt
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'quiz-prompt-header';
+        
+        let audioBtnHtml = '';
+        if (q.audioText) {
+          audioBtnHtml = `
+            <div class="audio-speech-row">
+              <button class="btn-audio" onclick="speech.speak('${q.audioText.replace(/'/g, "\\'")}', '${this.activeCourse.code}')" title="Dengarkan Suara">🔊</button>
+              <button class="btn-audio btn-audio-slow" onclick="speech.speak('${q.audioText.replace(/'/g, "\\'")}', '${this.activeCourse.code}', true)" title="Pelan">🐢</button>
+              <span class="audio-display-text">${q.audioText}</span>
+            </div>
+          `;
+        }
+
+        headerDiv.innerHTML = `
+          <h2 class="quiz-title">${q.prompt}</h2>
+          ${audioBtnHtml}
+        `;
+        body.appendChild(headerDiv);
+
+        // Content Area based on Type
+        if (q.type === 'multiple-choice' || q.type === 'listening') {
+          this.renderMultipleChoice(q, body);
+        } else if (q.type === 'word-bank') {
+          this.renderWordBank(q, body);
+        } else if (q.type === 'match-pairs') {
+          this.renderMatchPairs(q, body);
+        }
+      }
+
+      renderMultipleChoice(q, container) {
+        const grid = document.createElement('div');
+        grid.className = 'options-grid';
+
+        q.options.forEach((opt, idx) => {
+          const card = document.createElement('div');
+          card.className = 'option-card';
+          card.innerHTML = `
+            <span class="option-emoji">${opt.emoji || '💬'}</span>
+            <span>${opt.text}</span>
+          `;
+          card.onclick = () => {
+            if (this.isEvaluated) return;
+            sound.playPop();
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            this.selectedOption = opt;
+            this.enableCheckButton();
+          };
+          grid.appendChild(card);
+        });
+
+        container.appendChild(grid);
+      }
+
+      renderWordBank(q, container) {
+        const dropArea = document.createElement('div');
+        dropArea.className = 'sentence-drop-area';
+        dropArea.id = 'sentenceDropArea';
+
+        const poolArea = document.createElement('div');
+        poolArea.className = 'word-pool-area';
+        poolArea.id = 'wordPoolArea';
+
+        q.poolWords.forEach((word, idx) => {
+          const tile = document.createElement('div');
+          tile.className = 'word-tile';
+          tile.id = `poolWord_${idx}`;
+          tile.textContent = word;
+          tile.onclick = () => {
+            if (this.isEvaluated) return;
+            sound.playPop();
+            this.slottedWords.push({ word, poolIdx: idx });
+            tile.classList.add('slotted');
+            this.updateSlottedDisplay(dropArea);
+            this.enableCheckButton(this.slottedWords.length > 0);
+          };
+          poolArea.appendChild(tile);
+        });
+
+        container.appendChild(dropArea);
+        container.appendChild(poolArea);
+      }
+
+      updateSlottedDisplay(dropArea) {
+        dropArea.innerHTML = '';
+        this.slottedWords.forEach((item, slotIdx) => {
+          const tile = document.createElement('div');
+          tile.className = 'word-tile';
+          tile.textContent = item.word;
+          tile.onclick = () => {
+            if (this.isEvaluated) return;
+            sound.playPop();
+            // Kembalikan ke pool
+            document.getElementById(`poolWord_${item.poolIdx}`)?.classList.remove('slotted');
+            this.slottedWords.splice(slotIdx, 1);
+            this.updateSlottedDisplay(dropArea);
+            this.enableCheckButton(this.slottedWords.length > 0);
+          };
+          dropArea.appendChild(tile);
+        });
+      }
+
+      renderMatchPairs(q, container) {
+        const wrap = document.createElement('div');
+        wrap.className = 'match-pairs-container';
+
+        const leftCol = document.createElement('div');
+        leftCol.className = 'match-column';
+
+        const rightCol = document.createElement('div');
+        rightCol.className = 'match-column';
+
+        // Shuffle pairs for challenge
+        const leftItems = [...q.pairs].sort(() => Math.random() - 0.5);
+        const rightItems = [...q.pairs].sort(() => Math.random() - 0.5);
+
+        leftItems.forEach(item => {
+          const btn = document.createElement('div');
+          btn.className = 'match-item';
+          btn.dataset.source = item.source;
+          btn.dataset.target = item.target;
+          btn.textContent = item.source;
+          btn.onclick = () => {
+            if (this.isEvaluated || btn.classList.contains('matched')) return;
+            sound.playPop();
+            leftCol.querySelectorAll('.match-item').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            this.selectedMatchLeft = btn;
+            this.checkMatchAttempt(q);
+          };
+          leftCol.appendChild(btn);
+        });
+
+        rightItems.forEach(item => {
+          const btn = document.createElement('div');
+          btn.className = 'match-item';
+          btn.dataset.target = item.target;
+          btn.textContent = item.target;
+          btn.onclick = () => {
+            if (this.isEvaluated || btn.classList.contains('matched')) return;
+            sound.playPop();
+            rightCol.querySelectorAll('.match-item').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            this.selectedMatchRight = btn;
+            this.checkMatchAttempt(q);
+          };
+          rightCol.appendChild(btn);
+        });
+
+        wrap.appendChild(leftCol);
+        wrap.appendChild(rightCol);
+        container.appendChild(wrap);
+      }
+
+      checkMatchAttempt(q) {
+        if (!this.selectedMatchLeft || !this.selectedMatchRight) return;
+
+        const left = this.selectedMatchLeft;
+        const right = this.selectedMatchRight;
+
+        if (left.dataset.target === right.dataset.target) {
+          // Cocok!
+          sound.playPop();
+          left.classList.remove('selected');
+          left.classList.add('matched');
+          right.classList.remove('selected');
+          right.classList.add('matched');
+          this.matchedPairs.push(left.dataset.source);
+
+          this.selectedMatchLeft = null;
+          this.selectedMatchRight = null;
+
+          if (this.matchedPairs.length === q.pairs.length) {
+            this.enableCheckButton(true);
+            // Otomatis verifikasi jika semua pasangan cocok
+            setTimeout(() => this.evaluateAnswer(), 250);
+          }
+        } else {
+          // Salah pasangan
+          sound.playWrong();
+          left.classList.add('shake-animation');
+          right.classList.add('shake-animation');
+          setTimeout(() => {
+            left.classList.remove('selected', 'shake-animation');
+            right.classList.remove('selected', 'shake-animation');
+            this.selectedMatchLeft = null;
+            this.selectedMatchRight = null;
+          }, 450);
+        }
+      }
+
+      enableCheckButton(enable = true) {
+        const btn = document.getElementById('quizCheckBtn');
+        if (enable) {
+          btn.className = 'btn btn-green';
+          btn.disabled = false;
+        } else {
+          btn.className = 'btn btn-gray';
+          btn.disabled = true;
+        }
+      }
+
+      evaluateAnswer() {
+        this.isEvaluated = true;
+        const q = this.activeLesson.questions[this.currentIndex];
+        let isCorrect = false;
+
+        if (q.type === 'multiple-choice' || q.type === 'listening') {
+          isCorrect = this.selectedOption && this.selectedOption.isCorrect;
+        } else if (q.type === 'word-bank') {
+          // Bersihkan teks kurung pinyin jika ada untuk perbandingan
+          const userWords = this.slottedWords.map(w => w.word.split('(')[0].trim());
+          const targetWords = q.targetWords.map(w => w.trim());
+          isCorrect = (userWords.join(' ') === targetWords.join(' '));
+        } else if (q.type === 'match-pairs') {
+          isCorrect = (this.matchedPairs.length === q.pairs.length);
+        }
+
+        const bottomBar = document.getElementById('quizBottomBar');
+        const feedback = document.getElementById('feedbackMessage');
+        const fIcon = document.getElementById('feedbackIcon');
+        const fTitle = document.getElementById('feedbackTitle');
+        const fDesc = document.getElementById('feedbackDesc');
+        const checkBtn = document.getElementById('quizCheckBtn');
+
+        feedback.style.display = 'flex';
+
+        if (isCorrect) {
+          sound.playCorrect();
+          bottomBar.className = 'quiz-bottom-bar correct';
+          fIcon.textContent = '✓';
+          fIcon.style.color = '#3b8700';
+          fTitle.textContent = 'Luar Biasa!';
+          fDesc.textContent = q.explanation || 'Jawabanmu benar!';
+          checkBtn.className = 'btn btn-green';
+          checkBtn.textContent = 'LANJUTKAN';
+        } else {
+          sound.playWrong();
+          storage.state.hearts = Math.max(0, storage.state.hearts - 1);
+          storage.save();
+          document.getElementById('quizHeartCount').textContent = storage.state.hearts;
+
+          bottomBar.className = 'quiz-bottom-bar wrong';
+          fIcon.textContent = '✕';
+          fIcon.style.color = 'var(--color-heart-dark)';
+          fTitle.textContent = 'Kurang Tepat';
+          
+          let rightAns = '';
+          if (q.type === 'multiple-choice') {
+            const correctOpt = q.options.find(o => o.isCorrect);
+            rightAns = correctOpt ? correctOpt.text : '';
+          } else if (q.type === 'word-bank') {
+            rightAns = q.targetWords.join(' ');
+          }
+          fDesc.textContent = rightAns ? `Jawaban benar: "${rightAns}". ${q.explanation || ''}` : (q.explanation || 'Coba perhatikan baik-baik lagi.');
+
+          checkBtn.className = 'btn btn-fire';
+          checkBtn.textContent = 'MENGERTI';
+
+          if (storage.state.hearts <= 0) {
+            setTimeout(() => {
+              alert('Kamu kehabisan hati ❤️! Nyawa akan diisi ulang agar kamu bisa terus belajar.');
+              storage.state.hearts = 5;
+              storage.save();
+              document.getElementById('quizHeartCount').textContent = '5';
+            }, 600);
+          }
+        }
+      }
+
+      nextStep() {
+        this.currentIndex += 1;
+        if (this.currentIndex < this.activeLesson.questions.length) {
+          this.renderQuestion();
+        } else {
+          this.finishLesson();
+        }
+      }
+
+      finishLesson() {
+        document.getElementById('quizProgressBar').style.width = '100%';
+        sound.playStreak();
+        triggerConfetti();
+
+        const result = storage.recordLessonDone(this.activeLesson.id);
+
+        // Update UI
+        updateAllStatsUI();
+        renderLearningPath();
+
+        // Close quiz & Show Streak Celebration Modal
+        setTimeout(() => {
+          document.getElementById('quizOverlay').classList.remove('open');
+          showStreakCelebrationModal(result);
+        }, 400);
+      }
+    }
+    const quiz = new QuizEngine();
+
+    function handleQuizAction() {
+      if (!quiz.isEvaluated) {
+        quiz.evaluateAnswer();
+      } else {
+        quiz.nextStep();
+      }
+    }
+
+    function confirmExitQuiz() {
+      if (confirm('Yakin ingin keluar dari pelajaran? Kemajuan sesi ini akan hilang.')) {
+        document.getElementById('quizOverlay').classList.remove('open');
+      }
+    }
+
+    /* ==========================================================================
+       6. UI RENDERING & STREAK MODAL
+       ========================================================================== */
+    function updateAllStatsUI() {
+      const state = storage.state;
+      const currentCourse = COURSES[state.currentLang];
+
+      // Header UI
+      document.getElementById('headerFlag').textContent = currentCourse.flag;
+      document.getElementById('headerLangName').textContent = currentCourse.name;
+      document.getElementById('streakCountText').textContent = state.streak;
+      document.getElementById('gemCountText').textContent = state.gems;
+      document.getElementById('heartCountText').textContent = state.hearts;
+
+      const streakPill = document.getElementById('streakPill');
+      if (storage.isDoneToday()) {
+        streakPill.classList.add('active-today');
+      } else {
+        streakPill.classList.remove('active-today');
+      }
+
+      // Sidebar UI
+      document.getElementById('sideStreakNumber').textContent = `${state.streak} Hari`;
+      const badge = document.getElementById('streakStateBadge');
+      if (storage.isDoneToday()) {
+        badge.textContent = '🔥 Selesai Hari Ini';
+        badge.style.color = 'var(--color-fire)';
+      } else {
+        badge.textContent = 'Belum Selesai';
+        badge.style.color = '#888';
+      }
+
+      // Days of Week Row
+      renderWeekRow('streakDaysRow');
+
+      // Mascot Speech
+      const mascot = document.getElementById('mascotSpeech');
+      if (storage.isDoneToday()) {
+        mascot.textContent = `Hebat! Streak ${state.streak} harimu sudah menyala terang hari ini! Pertahankan besok! 🎉`;
+      } else {
+        mascot.textContent = `Ayo selesaikan 1 pelajaran ${currentCourse.name} hari ini agar streak apimu tidak padam! 🔥`;
+      }
+    }
+
+    function renderWeekRow(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+
+      const days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+      const today = new Date();
+      // Hitung index hari Senin = 0, Minggu = 6
+      const currentDayIndex = (today.getDay() + 6) % 7;
+
+      days.forEach((dayName, idx) => {
+        const col = document.createElement('div');
+        col.className = 'day-circle-col';
+
+        const circle = document.createElement('div');
+        circle.className = 'day-circle';
+
+        // Check jika hari ini sudah selesai atau hari lalu ada di riwayat
+        const diff = idx - currentDayIndex;
+        const targetDate = new Date();
+        targetDate.setDate(today.getDate() + diff);
+        const dateStr = targetDate.toISOString().split('T')[0];
+
+        if (storage.state.history.includes(dateStr)) {
+          circle.classList.add('done');
+          circle.textContent = '✓';
+        } else {
+          circle.textContent = (idx === currentDayIndex) ? '🔥' : '';
+        }
+
+        const label = document.createElement('span');
+        label.className = 'day-label';
+        label.textContent = dayName;
+
+        col.appendChild(circle);
+        col.appendChild(label);
+        container.appendChild(col);
+      });
+    }
+
+    function renderLearningPath() {
+      const container = document.getElementById('pathContainer');
+      container.innerHTML = '';
+
+      const course = COURSES[storage.state.currentLang];
+      const completedList = storage.state.completedLessons[course.id] || [];
+
+      course.units.forEach((unit, unitIdx) => {
+        // Unit Banner
+        const banner = document.createElement('div');
+        banner.className = 'unit-banner';
+        banner.style.background = `linear-gradient(135deg, ${unit.color} 0%, #2b2b2b 180%)`;
+        banner.innerHTML = `
+          <div class="unit-header">
+            <h3>${unit.title}</h3>
+            <p>${unit.desc}</p>
+          </div>
+          <span style="font-size: 32px;">🏆</span>
+        `;
+        container.appendChild(banner);
+
+        // Lesson Tree
+        const tree = document.createElement('div');
+        tree.className = 'lessons-tree';
+
+        unit.lessons.forEach((lesson, lIdx) => {
+          const isDone = completedList.includes(lesson.id);
+          // Lesson pertama terbuka, berikutnya terbuka jika sebelumnya selesai
+          const isUnlocked = (unitIdx === 0 && lIdx === 0) || isDone || (lIdx > 0 && completedList.includes(unit.lessons[lIdx - 1].id)) || (unitIdx > 0 && true);
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'lesson-node-wrapper';
+
+          const btn = document.createElement('button');
+          btn.className = `lesson-btn ${isDone ? 'completed' : ''} ${!isUnlocked ? 'locked' : ''}`;
+          btn.innerHTML = isUnlocked ? (isDone ? '★' : lesson.icon) : '🔒';
+          btn.title = lesson.title;
+
+          if (isDone) {
+            const crown = document.createElement('div');
+            crown.className = 'crown-badge';
+            crown.textContent = '👑';
+            wrapper.appendChild(crown);
+          }
+
+          if (isUnlocked) {
+            btn.onclick = () => {
+              sound.playPop();
+              quiz.start(course, lesson);
+            };
+          }
+
+          const tooltip = document.createElement('div');
+          tooltip.className = 'lesson-title-tooltip';
+          tooltip.textContent = lesson.title;
+
+          wrapper.appendChild(btn);
+          wrapper.appendChild(tooltip);
+          tree.appendChild(wrapper);
+        });
+
+        container.appendChild(tree);
+      });
+    }
+
+    /* ==========================================================================
+       7. STREAK MODAL & CELEBRATION
+       ========================================================================== */
+    function showStreakCelebrationModal(res) {
+      document.getElementById('modalStreakCount').textContent = `${res.streak} Hari!`;
+      document.getElementById('modalTotalXp').textContent = `+${res.xpEarned} XP`;
+      document.getElementById('modalBonusGems').textContent = `+${res.gemsEarned} 💎`;
+      
+      const sub = document.getElementById('modalStreakSub');
+      if (res.streakIncremented) {
+        sub.textContent = '🔥 Streak harianmu bertambah! Terus pertahankan ritme belajarmu!';
+      } else {
+        sub.textContent = 'Pelajaran selesai! Kamu sudah menjaga streak apimu tetap membara hari ini!';
+      }
+
+      renderWeekRow('modalWeekDays');
+      document.getElementById('streakModal').classList.add('open');
+    }
+
+    function openStreakModal() {
+      sound.playPop();
+      document.getElementById('modalStreakCount').textContent = `${storage.state.streak} Hari`;
+      document.getElementById('modalTotalXp').textContent = `${storage.state.xp} XP`;
+      document.getElementById('modalBonusGems').textContent = `${storage.state.gems} 💎`;
+      
+      const sub = document.getElementById('modalStreakSub');
+      if (storage.isDoneToday()) {
+        sub.textContent = 'Streak aktif! Pelajaran hari ini sudah selesai tercatat.';
+      } else {
+        sub.textContent = 'Selesaikan 1 pelajaran sekarang untuk mengaktifkan streak hari ini!';
+      }
+
+      renderWeekRow('modalWeekDays');
+      document.getElementById('streakModal').classList.add('open');
+    }
+
+    function closeStreakModal() {
+      sound.playPop();
+      document.getElementById('streakModal').classList.remove('open');
+    }
+
+    /* ==========================================================================
+       8. LANGUAGE MODAL & SWITCHER
+       ========================================================================== */
+    function openLanguageModal() {
+      sound.playPop();
+      ['english', 'mandarin', 'spanish'].forEach(l => {
+        const item = document.getElementById(`langOption-${l}`);
+        if (item) {
+          if (l === storage.state.currentLang) {
+            item.classList.add('active');
+            item.querySelector('.active-badge').textContent = '✓';
+          } else {
+            item.classList.remove('active');
+            item.querySelector('.active-badge').textContent = '';
+          }
+        }
+      });
+      document.getElementById('langModal').classList.add('open');
+    }
+
+    function closeLanguageModal() {
+      sound.playPop();
+      document.getElementById('langModal').classList.remove('open');
+    }
+
+    function switchLanguage(langKey) {
+      if (COURSES[langKey]) {
+        storage.state.currentLang = langKey;
+        storage.save();
+        sound.playPop();
+        closeLanguageModal();
+        updateAllStatsUI();
+        renderLearningPath();
+      }
+    }
+
+    function refillHearts() {
+      sound.playPop();
+      storage.state.hearts = 5;
+      storage.save();
+      updateAllStatsUI();
+      alert('❤️ Hati kamu sekarang sudah terisi penuh (5/5)! Selamat belajar kembali!');
+    }
+
+    /* ==========================================================================
+       9. CANVAS CONFETTI CELEBRATION
+       ========================================================================== */
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx = canvas.getContext('2d');
+    let confettiParticles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function triggerConfetti() {
+      confettiParticles = [];
+      const colors = ['#58cc02', '#ff9600', '#1cb0f6', '#ff4b4b', '#ce82ff', '#ffd700'];
+      for (let i = 0; i < 90; i++) {
+        confettiParticles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 18,
+          vy: (Math.random() - 0.7) * 22,
+          size: Math.random() * 8 + 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 12,
+          life: 1.0,
+          decay: Math.random() * 0.012 + 0.008
+        });
+      }
+      animateConfetti();
+    }
+
+    let confettiAnimId = null;
+    function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let aliveCount = 0;
+
+      confettiParticles.forEach(p => {
+        if (p.life > 0) {
+          aliveCount++;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.45; // gravity
+          p.rotation += p.rotationSpeed;
+          p.life -= p.decay;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = Math.max(0, p.life);
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        }
+      });
+
+      if (aliveCount > 0) {
+        confettiAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cancelAnimationFrame(confettiAnimId);
+      }
+    }
+
+    /* ==========================================================================
+       10. APPLICATION INITIALIZATION
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      updateAllStatsUI();
+      renderLearningPath();
+    });
+  </script>
+</body>
+</html>
