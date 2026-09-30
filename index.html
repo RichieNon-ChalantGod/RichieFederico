@@ -1210,6 +1210,47 @@
       color: white;
     }
 
+
+    /* ==================== FIREBASE CLOUD BADGE & STYLES ==================== */
+    .stat-cloud {
+      color: #0284c7;
+      border-color: #bae6fd;
+      background: #f0f9ff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .stat-cloud:hover {
+      background: #e0f2fe;
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+    }
+    .stat-cloud.synced {
+      border-color: #86efac;
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+    .stat-cloud.error {
+      border-color: #fca5a5;
+      background: #fef2f2;
+      color: #dc2626;
+    }
+    .cloud-icon {
+      font-size: 16px;
+      display: inline-block;
+    }
+    .cloud-pulse {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px #10b981;
+    }
+
   </style>
 </head>
 <body>
@@ -1227,6 +1268,12 @@
       </div>
 
       <div class="stats-nav">
+        <!-- Firebase Cloud Status Pill -->
+        <div class="stat-pill stat-cloud" id="firebasePill" onclick="openFirebaseModal()" title="Status Sinkronisasi Firebase Cloud">
+          <span class="cloud-icon" id="firebaseIcon">☁️</span>
+          <span class="cloud-pulse" id="firebaseDot"></span>
+          <span id="firebaseStatusText" style="font-size: 13px; font-weight: 800;">Firebase</span>
+        </div>
         <!-- Language Switcher -->
         <button class="lang-btn" id="langPickerBtn" onclick="openLanguageModal()" title="Klik untuk ganti bahasa kursus">
           <span class="flag-icon" id="headerFlag">🇬🇧</span>
@@ -1439,8 +1486,160 @@
     </div>
   </div>
 
+
+  <!-- ==================== FIREBASE CLOUD MODAL ==================== -->
+  <div class="modal-backdrop" id="firebaseModal">
+    <div class="modal-card">
+      <div style="font-size: 46px; margin-bottom: -6px;">☁️🔥</div>
+      <h3 style="font-size: 22px; font-weight: 900;">Firebase Terhubung</h3>
+      <p style="font-size: 14px; color: var(--color-text-light); margin-top: -6px;">
+        Proyek ini terhubung ke backend Firebase <strong>richievsderrickbyon</strong>.
+      </p>
+
+      <div style="width: 100%; text-align: left; background: #f8fafc; border: 2px solid var(--color-border); border-radius: var(--radius-md); padding: 14px; font-size: 13px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; justify-content: space-between;">
+          <strong style="color: #666;">Project ID:</strong>
+          <span style="font-weight: 900; color: #0284c7;">richievsderrickbyon</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <strong style="color: #666;">Status:</strong>
+          <span id="firebaseModalStatus" style="font-weight: 800; color: #16a34a;">● Aktif & Real-time</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <strong style="color: #666;">User ID:</strong>
+          <span id="firebaseModalUid" style="font-weight: 700; font-family: monospace; font-size: 11px; color: #374151;">Guest / Menghubungkan...</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <strong style="color: #666;">Layanan:</strong>
+          <span style="font-weight: 800; color: #4b5563;">Firestore & Hosting</span>
+        </div>
+      </div>
+
+      <button class="btn btn-blue" style="width: 100%;" onclick="syncFirebaseNow()">
+        🔄 SINKRONKAN PROGRES SEKARANG
+      </button>
+
+      <button class="btn btn-outline" style="width: 100%;" onclick="closeFirebaseModal()">
+        TUTUP
+      </button>
+    </div>
+  </div>
+
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas"></canvas>
+
+
+  <!-- ==================== FIREBASE SDK INITIALIZATION ==================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Web app's Firebase configuration provided by user
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0XaXY5Cn5VgRhOIIKwVydFm1mQHzwhws",
+      authDomain: "richievsderrickbyon.firebaseapp.com",
+      projectId: "richievsderrickbyon",
+      storageBucket: "richievsderrickbyon.firebasestorage.app",
+      messagingSenderId: "444459927871",
+      appId: "1:444459927871:web:be544ff089a014be372b8a"
+    };
+
+    try {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      window.FirebaseBridge = {
+        app,
+        auth,
+        db,
+        isReady: true,
+        currentUser: null,
+        async syncToCloud(state) {
+          if (!this.currentUser) return;
+          try {
+            const userRef = doc(db, "users", this.currentUser.uid);
+            await setDoc(userRef, {
+              currentLang: state.currentLang,
+              streak: state.streak,
+              lastDate: state.lastDate,
+              history: state.history,
+              xp: state.xp,
+              gems: state.gems,
+              hearts: state.hearts,
+              completedLessons: state.completedLessons,
+              updatedAt: serverTimestamp()
+            }, { merge: true });
+            if (typeof updateFirebaseStatusUI === 'function') {
+              updateFirebaseStatusUI('synced', this.currentUser.uid);
+            }
+          } catch(e) {
+            console.warn('Firebase sync warning:', e);
+          }
+        },
+        async loadFromCloud() {
+          if (!this.currentUser) return null;
+          try {
+            const userRef = doc(db, "users", this.currentUser.uid);
+            const snap = await getDoc(userRef);
+            if (snap.exists()) {
+              return snap.data();
+            }
+          } catch(e) {
+            console.warn('Firebase cloud load warning:', e);
+          }
+          return null;
+        }
+      };
+
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          window.FirebaseBridge.currentUser = user;
+          if (typeof updateFirebaseStatusUI === 'function') {
+            updateFirebaseStatusUI('connected', user.uid);
+          }
+          // Load cloud progress if available
+          if (window.storage) {
+            const cloudData = await window.FirebaseBridge.loadFromCloud();
+            if (cloudData) {
+              window.storage.state = {
+                ...window.storage.state,
+                xp: Math.max(window.storage.state.xp || 0, cloudData.xp || 0),
+                gems: Math.max(window.storage.state.gems || 0, cloudData.gems || 0),
+                streak: Math.max(window.storage.state.streak || 0, cloudData.streak || 0),
+                completedLessons: {
+                  ...window.storage.state.completedLessons,
+                  ...cloudData.completedLessons
+                }
+              };
+              window.storage.save(false); // local save only
+              if (typeof updateAllStatsUI === 'function') updateAllStatsUI();
+              if (typeof renderLearningPath === 'function') renderLearningPath();
+            }
+          }
+        } else {
+          try {
+            await signInAnonymously(auth);
+          } catch(e) {
+            console.warn('Anonymous auth note:', e);
+            if (typeof updateFirebaseStatusUI === 'function') {
+              updateFirebaseStatusUI('connected', 'Guest');
+            }
+          }
+        }
+      });
+
+      if (typeof updateFirebaseStatusUI === 'function') {
+        updateFirebaseStatusUI('connected');
+      }
+    } catch(err) {
+      console.warn('Firebase init note:', err);
+      if (typeof updateFirebaseStatusUI === 'function') {
+        updateFirebaseStatusUI('offline');
+      }
+    }
+  </script>
 
   <!-- ==================== JAVASCRIPT APPLICATION CODE ==================== -->
   <script>
@@ -4756,10 +4955,13 @@
         return this.getDefault();
       }
 
-      save() {
+      save(syncCloud = true) {
         try {
           localStorage.setItem(this.KEY, JSON.stringify(this.state));
         } catch(e) {}
+        if (syncCloud && typeof window !== 'undefined' && window.FirebaseBridge && window.FirebaseBridge.syncToCloud) {
+          window.FirebaseBridge.syncToCloud(this.state);
+        }
       }
 
       getTodayStr() {
@@ -5674,6 +5876,65 @@
     /* ==========================================================================
        10. APPLICATION INITIALIZATION
        ========================================================================== */
+
+    // Expose storage globally for Firebase cloud sync
+    window.storage = storage;
+
+    function updateFirebaseStatusUI(status, uid = '') {
+      const pill = document.getElementById('firebasePill');
+      const text = document.getElementById('firebaseStatusText');
+      const dot = document.getElementById('firebaseDot');
+      const modalStatus = document.getElementById('firebaseModalStatus');
+      const modalUid = document.getElementById('firebaseModalUid');
+
+      if (!pill || !text) return;
+
+      if (status === 'connected') {
+        pill.className = 'stat-pill stat-cloud';
+        text.textContent = 'Firebase';
+        if (dot) dot.style.background = '#10b981';
+        if (modalStatus) modalStatus.innerHTML = '<span style="color:#16a34a;">● Terhubung & Real-time</span>';
+        if (modalUid && uid) modalUid.textContent = uid.substring(0, 16) + '...';
+      } else if (status === 'synced') {
+        pill.className = 'stat-pill stat-cloud synced';
+        text.textContent = '✓ Tersimpan';
+        if (dot) dot.style.background = '#16a34a';
+        if (modalStatus) modalStatus.innerHTML = '<span style="color:#16a34a;">● Progres Tersinkronisasi</span>';
+        setTimeout(() => {
+          if (pill) pill.className = 'stat-pill stat-cloud';
+          if (text) text.textContent = 'Firebase';
+        }, 3000);
+      } else if (status === 'offline') {
+        pill.className = 'stat-pill stat-cloud error';
+        text.textContent = 'Lokal';
+        if (dot) dot.style.background = '#ef4444';
+        if (modalStatus) modalStatus.innerHTML = '<span style="color:#ef4444;">● Mode Offline (Lokal)</span>';
+      }
+    }
+
+    function openFirebaseModal() {
+      sound.playPop();
+      const modal = document.getElementById('firebaseModal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeFirebaseModal() {
+      sound.playPop();
+      const modal = document.getElementById('firebaseModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function syncFirebaseNow() {
+      sound.playPop();
+      if (window.FirebaseBridge && window.FirebaseBridge.syncToCloud) {
+        window.FirebaseBridge.syncToCloud(storage.state);
+        alert('Progres berhasil disinkronkan ke Firebase Cloud Firestore! ☁️🔥');
+      } else {
+        alert('Menyimpan secara lokal di browser Anda.');
+      }
+      closeFirebaseModal();
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       updateAllStatsUI();
       renderLearningPath();

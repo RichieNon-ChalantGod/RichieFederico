@@ -1,0 +1,29 @@
+{
+  "name": "richiefederico",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve .",
+    "serve": "firebase serve",
+    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichieNon-ChalantGod/RichieFederico.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RichieNon-ChalantGod/RichieFederico/issues"
+  },
+  "homepage": "https://github.com/RichieNon-ChalantGod/RichieFederico#readme",
+  "dependencies": {
+    "firebase": "^12.19.0",
+    "firebase-tools": "^15.32.0"
+  }
+}
