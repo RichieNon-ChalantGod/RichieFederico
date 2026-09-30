@@ -1011,6 +1011,205 @@
     .shake-animation {
       animation: shake 0.4s ease-in-out;
     }
+
+    /* ==================== COURSE SWITCHER HERO BAR ==================== */
+    .course-switch-section {
+      width: 100%;
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      box-shadow: 0 4px 0 var(--color-border-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+
+    .course-switch-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .course-switch-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      color: var(--color-text-light);
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--color-green);
+      display: inline-block;
+      box-shadow: 0 0 8px var(--color-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    .course-switch-hint {
+      font-size: 12px;
+      font-weight: 700;
+      color: #888;
+    }
+
+    .course-pill-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      width: 100%;
+    }
+
+    .course-tab-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: #f8fafc;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 3px 0 var(--color-border-dark);
+      cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .course-tab-card:hover {
+      background: #f1f7ff;
+      border-color: var(--color-blue);
+      transform: translateY(-2px);
+    }
+
+    .course-tab-card:active {
+      transform: translateY(3px);
+      box-shadow: none;
+    }
+
+    .course-tab-card.active {
+      background: white;
+      border-color: var(--active-theme-color, var(--color-green));
+      box-shadow: 0 4px 0 var(--active-theme-dark, var(--color-green-dark));
+      transform: translateY(-2px);
+    }
+
+    .course-tab-flag {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .course-tab-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      min-width: 0;
+    }
+
+    .course-tab-name {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--color-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .course-tab-meta {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-text-light);
+    }
+
+    .course-tab-active-badge {
+      display: none;
+      position: absolute;
+      top: -8px;
+      right: 8px;
+      background: var(--active-theme-color, var(--color-green));
+      color: white;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.5px;
+    }
+
+    .course-tab-card.active .course-tab-active-badge {
+      display: block;
+    }
+
+    .unit-tree-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    /* Sidebar quick switcher */
+    .side-lang-btn-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .side-lang-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: #fafafa;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 13px;
+      transition: all 0.12s;
+    }
+
+    .side-lang-item:hover {
+      background: #f0f7ff;
+      border-color: var(--color-blue);
+    }
+
+    .side-lang-item.active {
+      border-color: var(--color-green);
+      background: var(--color-green-light);
+      box-shadow: 0 2px 0 var(--color-green-dark);
+    }
+
+    /* Modal audio test button */
+    .lang-voice-test-btn {
+      background: #f0f7ff;
+      border: 1.5px solid var(--color-blue);
+      border-radius: var(--radius-pill);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--color-blue-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.1s;
+    }
+    .lang-voice-test-btn:hover {
+      background: var(--color-blue);
+      color: white;
+    }
+
   </style>
 </head>
 <body>
@@ -1029,10 +1228,10 @@
 
       <div class="stats-nav">
         <!-- Language Switcher -->
-        <button class="lang-btn" id="langPickerBtn" onclick="openLanguageModal()">
+        <button class="lang-btn" id="langPickerBtn" onclick="openLanguageModal()" title="Klik untuk ganti bahasa kursus">
           <span class="flag-icon" id="headerFlag">🇬🇧</span>
-          <span id="headerLangName">Inggris</span>
-          <span style="font-size: 11px;">▼</span>
+          <span id="headerLangName" style="font-weight:900;">Bahasa Inggris</span>
+          <span style="font-size: 11px; color: #888;">▼ Ganti</span>
         </button>
 
         <!-- Streak Pill -->
@@ -1058,12 +1257,43 @@
 
   <!-- ==================== MAIN LEARNING VIEW ==================== -->
   <main>
+
+    <!-- Main Learning Path Container -->
     <div class="path-container" id="pathContainer">
-      <!-- Dynamic Unit Banners & Lesson Nodes Rendered by JS -->
+      <!-- Course Switcher Hero Bar (1-Click Switch) -->
+      <div class="course-switch-section" id="courseSwitchSection">
+        <div class="course-switch-header">
+          <div class="course-switch-title">
+            <span class="pulse-dot"></span>
+            <span>PILIH BAHASA KURSUS</span>
+          </div>
+          <span class="course-switch-hint">Klik bahasa untuk langsung berpindah materi:</span>
+        </div>
+        <div class="course-pill-tabs" id="courseTabsList">
+          <!-- Dynamic Course Tabs -->
+        </div>
+      </div>
+
+      <!-- Unit Tree Container -->
+      <div id="unitTreeWrapper" class="unit-tree-wrapper">
+        <!-- Dynamic Unit Banners & Lesson Nodes Rendered by JS -->
+      </div>
     </div>
 
     <!-- Right Sidebar -->
     <aside class="sidebar">
+      <!-- Quick Language Switcher Card -->
+      <div class="side-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="font-weight: 900; font-size: 15px; color: var(--color-text);">Ganti Bahasa Cepat</h4>
+          <span style="font-size: 13px; font-weight: 800; color: #666;" id="sidebarCurrentLang">🌐</span>
+        </div>
+        <p style="font-size: 13px; color: var(--color-text-light); margin-top: -6px;">Pilih bahasa untuk belajar sekarang:</p>
+        <div class="side-lang-btn-list" id="sideLangBtnList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
       <!-- Streak Status Card -->
       <div class="side-card streak-widget-card">
         <div class="streak-card-header">
@@ -1199,39 +1429,8 @@
         Ganti bahasa kapan saja, kemajuan belajarmu tersimpan otomatis!
       </p>
 
-      <div class="lang-option-list">
-        <div class="lang-option-item" onclick="switchLanguage('english')" id="langOption-english">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 28px;">🇬🇧</span>
-            <div style="text-align: left;">
-              <div>Bahasa Inggris</div>
-              <span style="font-size: 12px; font-weight: 600; color: #777;">Greetings, Food & Travel</span>
-            </div>
-          </div>
-          <span class="active-badge" style="font-size: 18px;"></span>
-        </div>
-
-        <div class="lang-option-item" onclick="switchLanguage('mandarin')" id="langOption-mandarin">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 28px;">🇨🇳</span>
-            <div style="text-align: left;">
-              <div>Bahasa Mandarin</div>
-              <span style="font-size: 12px; font-weight: 600; color: #777;">Hanzi, Pinyin, Sapaan & Belanja</span>
-            </div>
-          </div>
-          <span class="active-badge" style="font-size: 18px;"></span>
-        </div>
-
-        <div class="lang-option-item" onclick="switchLanguage('spanish')" id="langOption-spanish">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 28px;">🇪🇸</span>
-            <div style="text-align: left;">
-              <div>Bahasa Spanyol</div>
-              <span style="font-size: 12px; font-weight: 600; color: #777;">Saludos, Comida & Frases</span>
-            </div>
-          </div>
-          <span class="active-badge" style="font-size: 18px;"></span>
-        </div>
+      <div class="lang-option-list" id="modalLangOptionList">
+        <!-- Rendered dynamically from COURSES -->
       </div>
 
       <button class="btn btn-outline" style="width: 100%; margin-top: 6px;" onclick="closeLanguageModal()">
@@ -1253,86 +1452,96 @@
         this.ctx = null;
       }
       init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) this.ctx = new AudioContext();
-        }
-        if (this.ctx && this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
+        try {
+          if (!this.ctx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) this.ctx = new AudioContext();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => {});
+          }
+        } catch(e) {}
       }
       playPop() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        const now = this.ctx.currentTime;
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(380, now);
-        osc.frequency.exponentialRampToValueAtTime(750, now + 0.05);
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.07);
+        try {
+          this.init();
+          if (!this.ctx || !this.ctx.createOscillator) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const now = this.ctx.currentTime;
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(380, now);
+          osc.frequency.exponentialRampToValueAtTime(750, now + 0.05);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.07);
+        } catch(e) {}
       }
       playCorrect() {
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Duolingo chime)
-        freqs.forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          const st = now + (idx * 0.075);
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, st);
-          gain.gain.setValueAtTime(0.24, st);
-          gain.gain.exponentialRampToValueAtTime(0.001, st + 0.22);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(st);
-          osc.stop(st + 0.24);
-        });
+        try {
+          this.init();
+          if (!this.ctx || !this.ctx.createOscillator) return;
+          const now = this.ctx.currentTime;
+          const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Duolingo chime)
+          freqs.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            const st = now + (idx * 0.075);
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, st);
+            gain.gain.setValueAtTime(0.24, st);
+            gain.gain.exponentialRampToValueAtTime(0.001, st + 0.22);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(st);
+            osc.stop(st + 0.24);
+          });
+        } catch(e) {}
       }
       playWrong() {
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        [220, 200].forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          const st = now + (idx * 0.12);
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(freq, st);
-          osc.frequency.exponentialRampToValueAtTime(freq * 0.85, st + 0.18);
-          gain.gain.setValueAtTime(0.16, st);
-          gain.gain.exponentialRampToValueAtTime(0.01, st + 0.18);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(st);
-          osc.stop(st + 0.19);
-        });
+        try {
+          this.init();
+          if (!this.ctx || !this.ctx.createOscillator) return;
+          const now = this.ctx.currentTime;
+          [220, 200].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            const st = now + (idx * 0.12);
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, st);
+            osc.frequency.exponentialRampToValueAtTime(freq * 0.85, st + 0.18);
+            gain.gain.setValueAtTime(0.16, st);
+            gain.gain.exponentialRampToValueAtTime(0.01, st + 0.18);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(st);
+            osc.stop(st + 0.19);
+          });
+        } catch(e) {}
       }
       playStreak() {
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const notes = [392, 523.25, 659.25, 783.99, 1046.5, 1318.5]; // G4 to E6
-        notes.forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          const st = now + (idx * 0.07);
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, st);
-          gain.gain.setValueAtTime(0.25, st);
-          gain.gain.exponentialRampToValueAtTime(0.005, st + 0.35);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(st);
-          osc.stop(st + 0.36);
-        });
+        try {
+          this.init();
+          if (!this.ctx || !this.ctx.createOscillator) return;
+          const now = this.ctx.currentTime;
+          const notes = [392, 523.25, 659.25, 783.99, 1046.5, 1318.5]; // G4 to E6
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            const st = now + (idx * 0.07);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, st);
+            gain.gain.setValueAtTime(0.25, st);
+            gain.gain.exponentialRampToValueAtTime(0.005, st + 0.35);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(st);
+            osc.stop(st + 0.36);
+          });
+        } catch(e) {}
       }
     }
     const sound = new SoundController();
@@ -1342,17 +1551,19 @@
        ========================================================================== */
     class SpeechController {
       constructor() {
-        this.synth = window.speechSynthesis || null;
+        this.synth = (typeof window !== 'undefined' && window.speechSynthesis) ? window.speechSynthesis : null;
       }
       speak(text, langCode = 'en-US', slow = false) {
-        if (!this.synth) return;
-        this.synth.cancel();
-        // Bersihkan pinyin atau kurung bantuan agar audio melafalkan kata asli
-        const clean = text.replace(/\(.*?\)/g, '').trim();
-        const utt = new SpeechSynthesisUtterance(clean);
-        utt.lang = langCode;
-        utt.rate = slow ? 0.65 : 0.95;
-        this.synth.speak(utt);
+        try {
+          if (!this.synth) return;
+          this.synth.cancel();
+          // Bersihkan pinyin atau kurung bantuan agar audio melafalkan kata asli
+          const clean = text.replace(/\(.*?\)/g, '').trim();
+          const utt = new SpeechSynthesisUtterance(clean);
+          utt.lang = langCode;
+          utt.rate = slow ? 0.65 : 0.95;
+          this.synth.speak(utt);
+        } catch(e) {}
       }
     }
     const speech = new SpeechController();
@@ -1361,419 +1572,3148 @@
        3. DATA KURIKULUM & SOAL (Inggris, Mandarin, Spanyol)
        ========================================================================== */
     const COURSES = {
-      english: {
-        id: 'english',
-        name: 'Bahasa Inggris',
-        flag: '🇬🇧',
-        code: 'en-US',
-        units: [
+  "english": {
+    "id": "english",
+    "name": "Bahasa Inggris",
+    "nativeName": "English",
+    "flag": "🇬🇧",
+    "code": "en-US",
+    "badgeColor": "#58cc02",
+    "welcomeMsg": "Welcome! Selesaikan pelajaran Bahasa Inggris hari ini! 🇬🇧",
+    "units": [
+      {
+        "id": "en_u1",
+        "title": "Unit 1: Sapaan & Perkenalan",
+        "desc": "Kuasai sapaan dasar, perkenalan diri, dan tata krama.",
+        "color": "#58cc02",
+        "lessons": [
           {
-            id: 'en_u1',
-            title: 'Unit 1: Sapaan & Perkenalan',
-            desc: 'Kuasai sapaan dasar, perkenalan diri, dan tata krama.',
-            color: '#58cc02',
-            lessons: [
+            "id": "en_l1",
+            "title": "Sapaan Umum",
+            "icon": "👋",
+            "questions": [
               {
-                id: 'en_l1',
-                title: 'Sapaan Umum',
-                icon: '👋',
-                questions: [
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara mengucapkan \"Halo\" dalam bahasa Inggris?",
+                "audioText": "Hello",
+                "options": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Bagaimana cara mengucapkan "Halo" dalam bahasa Inggris?',
-                    audioText: 'Hello',
-                    options: [
-                      { text: 'Hello', isCorrect: true, emoji: '👋' },
-                      { text: 'Goodbye', isCorrect: false, emoji: '🚶' },
-                      { text: 'Please', isCorrect: false, emoji: '🙏' },
-                      { text: 'Thanks', isCorrect: false, emoji: '✨' }
-                    ],
-                    explanation: '"Hello" adalah sapaan paling umum dalam bahasa Inggris.'
+                    "text": "Hello",
+                    "isCorrect": true,
+                    "emoji": "👋"
                   },
                   {
-                    type: 'word-bank',
-                    prompt: 'Susun kalimat: "Selamat pagi, nama saya John"',
-                    audioText: 'Good morning my name is John',
-                    targetWords: ['Good', 'morning', 'my', 'name', 'is', 'John'],
-                    poolWords: ['Good', 'morning', 'night', 'my', 'is', 'name', 'John'],
-                    explanation: '"Good morning" = Selamat pagi, "my name is..." = nama saya adalah...'
+                    "text": "Goodbye",
+                    "isCorrect": false,
+                    "emoji": "🚶"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan kata-kata berikut dengan artinya:',
-                    pairs: [
-                      { source: 'Hello', target: 'Halo' },
-                      { source: 'Thank you', target: 'Terima kasih' },
-                      { source: 'Goodbye', target: 'Selamat tinggal' },
-                      { source: 'Please', target: 'Tolong / Silakan' }
-                    ],
-                    explanation: 'Pasangan sapaan dasar telah dicocokkan dengan sempurna!'
+                    "text": "Please",
+                    "isCorrect": false,
+                    "emoji": "🙏"
                   },
                   {
-                    type: 'listening',
-                    prompt: 'Dengarkan kalimat berikut dan pilih artinya:',
-                    audioText: 'Nice to meet you',
-                    options: [
-                      { text: 'Senang berkenalan denganmu', isCorrect: true, emoji: '🤝' },
-                      { text: 'Sampai bertemu besok pagi', isCorrect: false, emoji: '🌅' },
-                      { text: 'Apa kabarmu hari ini?', isCorrect: false, emoji: '💬' },
-                      { text: 'Selamat beristirahat', isCorrect: false, emoji: '🌙' }
-                    ],
-                    explanation: '"Nice to meet you" diucapkan saat pertama berkenalan.'
+                    "text": "Thanks",
+                    "isCorrect": false,
+                    "emoji": "✨"
                   }
-                ]
+                ],
+                "explanation": "\"Hello\" adalah sapaan paling umum dan ramah dalam bahasa Inggris."
               },
               {
-                id: 'en_l2',
-                title: 'Percakapan Santai',
-                icon: '💬',
-                questions: [
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Selamat pagi, nama saya John\"",
+                "audioText": "Good morning my name is John",
+                "targetWords": [
+                  "Good",
+                  "morning",
+                  "my",
+                  "name",
+                  "is",
+                  "John"
+                ],
+                "poolWords": [
+                  "Good",
+                  "morning",
+                  "night",
+                  "my",
+                  "is",
+                  "name",
+                  "John",
+                  "welcome"
+                ],
+                "explanation": "\"Good morning\" = Selamat pagi, \"my name is...\" = nama saya adalah..."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan kata-kata berikut dengan artinya:",
+                "pairs": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Apa arti dari pertanyaan "How are you?"',
-                    audioText: 'How are you?',
-                    options: [
-                      { text: 'Bagaimana kabarmu?', isCorrect: true, emoji: '😊' },
-                      { text: 'Siapa namamu?', isCorrect: false, emoji: '❓' },
-                      { text: 'Dari mana asalmu?', isCorrect: false, emoji: '🌍' },
-                      { text: 'Berapa umurmu?', isCorrect: false, emoji: '🎂' }
-                    ],
-                    explanation: '"How are you?" digunakan untuk menanyakan kabar seseorang.'
+                    "source": "Hello",
+                    "target": "Halo"
                   },
                   {
-                    type: 'word-bank',
-                    prompt: 'Susun kalimat: "Saya sangat baik, terima kasih"',
-                    audioText: 'I am very good thank you',
-                    targetWords: ['I', 'am', 'very', 'good', 'thank', 'you'],
-                    poolWords: ['I', 'am', 'not', 'very', 'good', 'bad', 'thank', 'you'],
-                    explanation: '"I am very good, thank you" = Saya sangat baik, terima kasih.'
+                    "source": "Thank you",
+                    "target": "Terima kasih"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan ungkapan sehari-hari:',
-                    pairs: [
-                      { source: 'See you', target: 'Sampai jumpa' },
-                      { source: 'Excuse me', target: 'Permisi' },
-                      { source: 'Sorry', target: 'Maaf' },
-                      { source: 'Welcome', target: 'Sama-sama' }
-                    ],
-                    explanation: 'Semua ungkapan santai telah dipasangkan dengan tepat!'
+                    "source": "Goodbye",
+                    "target": "Selamat tinggal"
+                  },
+                  {
+                    "source": "Please",
+                    "target": "Tolong / Silakan"
                   }
-                ]
+                ],
+                "explanation": "Pasangan sapaan dasar telah dicocokkan dengan sempurna!"
+              },
+              {
+                "type": "listening",
+                "prompt": "Dengarkan kalimat berikut dan pilih artinya:",
+                "audioText": "Nice to meet you",
+                "options": [
+                  {
+                    "text": "Senang berkenalan denganmu",
+                    "isCorrect": true,
+                    "emoji": "🤝"
+                  },
+                  {
+                    "text": "Sampai bertemu besok pagi",
+                    "isCorrect": false,
+                    "emoji": "🌅"
+                  },
+                  {
+                    "text": "Apa kabarmu hari ini?",
+                    "isCorrect": false,
+                    "emoji": "💬"
+                  },
+                  {
+                    "text": "Selamat beristirahat",
+                    "isCorrect": false,
+                    "emoji": "🌙"
+                  }
+                ],
+                "explanation": "\"Nice to meet you\" diucapkan saat pertama berkenalan."
               }
             ]
           },
           {
-            id: 'en_u2',
-            title: 'Unit 2: Makanan & Kafe',
-            desc: 'Belajar memesan makanan dan minuman dengan santun.',
-            color: '#ff9600',
-            lessons: [
+            "id": "en_l2",
+            "title": "Percakapan Santai",
+            "icon": "💬",
+            "questions": [
               {
-                id: 'en_l3',
-                title: 'Di Kafe & Minuman',
-                icon: '☕',
-                questions: [
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari pertanyaan \"How are you?\"",
+                "audioText": "How are you?",
+                "options": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Pilih arti dari "I would like a cup of coffee":',
-                    audioText: 'I would like a cup of coffee',
-                    options: [
-                      { text: 'Saya ingin secangkir kopi', isCorrect: true, emoji: '☕' },
-                      { text: 'Saya minum air dingin', isCorrect: false, emoji: '💧' },
-                      { text: 'Saya suka teh manis', isCorrect: false, emoji: '🍵' },
-                      { text: 'Beri saya sarapan pagi', isCorrect: false, emoji: '🥐' }
-                    ],
-                    explanation: '"I would like..." adalah bentuk sopan untuk memesan pesanan.'
+                    "text": "Bagaimana kabarmu?",
+                    "isCorrect": true,
+                    "emoji": "😊"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan makanan dan minuman:',
-                    pairs: [
-                      { source: 'Water', target: 'Air' },
-                      { source: 'Bread', target: 'Roti' },
-                      { source: 'Tea', target: 'Teh' },
-                      { source: 'Bill', target: 'Tagihan' }
-                    ],
-                    explanation: 'Kosakata kafe telah cocok!'
+                    "text": "Siapa namamu?",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  },
+                  {
+                    "text": "Dari mana asalmu?",
+                    "isCorrect": false,
+                    "emoji": "🌍"
+                  },
+                  {
+                    "text": "Berapa umurmu?",
+                    "isCorrect": false,
+                    "emoji": "🎂"
                   }
-                ]
+                ],
+                "explanation": "\"How are you?\" digunakan untuk menanyakan kabar seseorang."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Saya sangat baik, terima kasih\"",
+                "audioText": "I am very good thank you",
+                "targetWords": [
+                  "I",
+                  "am",
+                  "very",
+                  "good",
+                  "thank",
+                  "you"
+                ],
+                "poolWords": [
+                  "I",
+                  "am",
+                  "not",
+                  "very",
+                  "good",
+                  "bad",
+                  "thank",
+                  "you",
+                  "fine"
+                ],
+                "explanation": "\"I am very good, thank you\" = Saya sangat baik, terima kasih."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan ungkapan santai:",
+                "pairs": [
+                  {
+                    "source": "See you",
+                    "target": "Sampai jumpa"
+                  },
+                  {
+                    "source": "Excuse me",
+                    "target": "Permisi"
+                  },
+                  {
+                    "source": "Sorry",
+                    "target": "Maaf"
+                  },
+                  {
+                    "source": "Welcome",
+                    "target": "Sama-sama"
+                  }
+                ],
+                "explanation": "Semua ungkapan santai telah dipasangkan dengan tepat!"
+              },
+              {
+                "type": "listening",
+                "prompt": "Dengarkan dan pilih respon yang tepat:",
+                "audioText": "Have a nice day",
+                "options": [
+                  {
+                    "text": "Semoga harimu menyenangkan",
+                    "isCorrect": true,
+                    "emoji": "☀️"
+                  },
+                  {
+                    "text": "Selamat makan siang",
+                    "isCorrect": false,
+                    "emoji": "🥪"
+                  },
+                  {
+                    "text": "Hati-hati di jalan",
+                    "isCorrect": false,
+                    "emoji": "🚗"
+                  },
+                  {
+                    "text": "Semoga berhasil ujian",
+                    "isCorrect": false,
+                    "emoji": "📝"
+                  }
+                ],
+                "explanation": "\"Have a nice day\" adalah ucapan perpisahan ramah."
+              }
+            ]
+          },
+          {
+            "id": "en_l3",
+            "title": "Asal & Identitas",
+            "icon": "🌍",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara bertanya \"Dari mana asalmu?\"",
+                "audioText": "Where are you from?",
+                "options": [
+                  {
+                    "text": "Where are you from?",
+                    "isCorrect": true,
+                    "emoji": "🌍"
+                  },
+                  {
+                    "text": "What is your job?",
+                    "isCorrect": false,
+                    "emoji": "💼"
+                  },
+                  {
+                    "text": "Where do you live?",
+                    "isCorrect": false,
+                    "emoji": "🏠"
+                  },
+                  {
+                    "text": "Who is this?",
+                    "isCorrect": false,
+                    "emoji": "👤"
+                  }
+                ],
+                "explanation": "\"Where are you from?\" menanyakan kota atau negara asal."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Saya berasal dari Indonesia\"",
+                "audioText": "I am from Indonesia",
+                "targetWords": [
+                  "I",
+                  "am",
+                  "from",
+                  "Indonesia"
+                ],
+                "poolWords": [
+                  "I",
+                  "am",
+                  "you",
+                  "from",
+                  "Indonesia",
+                  "live",
+                  "city"
+                ],
+                "explanation": "\"I am from...\" artinya \"Saya berasal dari...\"."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan negara dan kebangsaan:",
+                "pairs": [
+                  {
+                    "source": "Indonesia",
+                    "target": "Indonesian"
+                  },
+                  {
+                    "source": "Japan",
+                    "target": "Japanese"
+                  },
+                  {
+                    "source": "Spain",
+                    "target": "Spanish"
+                  },
+                  {
+                    "source": "China",
+                    "target": "Chinese"
+                  }
+                ],
+                "explanation": "Hebat! Kamu telah memahami nama negara dan warga negaranya."
               }
             ]
           }
         ]
       },
-
-      mandarin: {
-        id: 'mandarin',
-        name: 'Bahasa Mandarin',
-        flag: '🇨🇳',
-        code: 'zh-CN',
-        units: [
+      {
+        "id": "en_u2",
+        "title": "Unit 2: Makanan & Kafe",
+        "desc": "Belajar memesan makanan, minuman, dan meminta tagihan.",
+        "color": "#ff9600",
+        "lessons": [
           {
-            id: 'zh_u1',
-            title: 'Unit 1: Sapaan Dasar (问候)',
-            desc: 'Aksara Hanzi, nada Pinyin, dan ungkapan kesopanan pertama.',
-            color: '#ff4b4b',
-            lessons: [
+            "id": "en_l4",
+            "title": "Di Kafe & Minuman",
+            "icon": "☕",
+            "questions": [
               {
-                id: 'zh_l1',
-                title: 'Halo & Terima Kasih',
-                icon: '🇨🇳',
-                questions: [
+                "type": "multiple-choice",
+                "prompt": "Pilih arti dari \"I would like a cup of coffee\":",
+                "audioText": "I would like a cup of coffee",
+                "options": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Pilih Hanzi dan Pinyin untuk mengucapkan "Halo":',
-                    audioText: '你好',
-                    options: [
-                      { text: '你好 (Nǐ hǎo)', isCorrect: true, emoji: '👋' },
-                      { text: '再见 (Zàijiàn)', isCorrect: false, emoji: '🚶' },
-                      { text: '谢谢 (Xièxie)', isCorrect: false, emoji: '🙏' },
-                      { text: '对不起 (Duìbuqǐ)', isCorrect: false, emoji: '😔' }
-                    ],
-                    explanation: '你好 (Nǐ hǎo) tersusun dari 你 (kamu) + 好 (baik) = Halo!'
+                    "text": "Saya ingin secangkir kopi",
+                    "isCorrect": true,
+                    "emoji": "☕"
                   },
                   {
-                    type: 'word-bank',
-                    prompt: 'Susun kalimat: "Terima kasih banyak"',
-                    audioText: '非常感谢',
-                    targetWords: ['非常', '感谢'],
-                    poolWords: ['非常 (fēicháng)', '感谢 (gǎnxiè)', '你好 (nǐhǎo)', '再见 (zàijiàn)'],
-                    explanation: '非常 (fēicháng = sangat) + 感谢 (gǎnxiè = berterima kasih).'
+                    "text": "Saya minum air dingin",
+                    "isCorrect": false,
+                    "emoji": "💧"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan Hanzi dengan artinya:',
-                    pairs: [
-                      { source: '你好 (Nǐ hǎo)', target: 'Halo' },
-                      { source: '谢谢 (Xièxie)', target: 'Terima kasih' },
-                      { source: '再见 (Zàijiàn)', target: 'Sampai jumpa' },
-                      { source: '对不起 (Duìbuqǐ)', target: 'Maaf' }
-                    ],
-                    explanation: 'Semua sapaan Mandarin telah dipasangkan dengan tepat!'
+                    "text": "Saya suka teh manis",
+                    "isCorrect": false,
+                    "emoji": "🍵"
                   },
                   {
-                    type: 'listening',
-                    prompt: 'Dengarkan audio dan tebak kata yang diucapkan:',
-                    audioText: '再见',
-                    options: [
-                      { text: '再见 (Zàijiàn - Sampai jumpa)', isCorrect: true, emoji: '👋' },
-                      { text: '你好 (Nǐ hǎo - Halo)', isCorrect: false, emoji: '😊' },
-                      { text: '不客气 (Bú kèqi - Sama-sama)', isCorrect: false, emoji: '✨' },
-                      { text: '早上好 (Zǎoshang hǎo - Pagi)', isCorrect: false, emoji: '☀️' }
-                    ],
-                    explanation: '再见 (Zàijiàn) artinya sampai bertemu kembali.'
+                    "text": "Beri saya sarapan pagi",
+                    "isCorrect": false,
+                    "emoji": "🥐"
                   }
-                ]
+                ],
+                "explanation": "\"I would like...\" adalah bentuk sopan untuk memesan."
               },
               {
-                id: 'zh_l2',
-                title: 'Perkenalan Diri (我是...)',
-                icon: '🙋',
-                questions: [
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Tolong secangkir teh panas\"",
+                "audioText": "A cup of hot tea please",
+                "targetWords": [
+                  "A",
+                  "cup",
+                  "of",
+                  "hot",
+                  "tea",
+                  "please"
+                ],
+                "poolWords": [
+                  "A",
+                  "cup",
+                  "of",
+                  "hot",
+                  "cold",
+                  "tea",
+                  "coffee",
+                  "please"
+                ],
+                "explanation": "\"Hot tea\" = teh panas, \"please\" = tolong / silakan."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan minuman kafe:",
+                "pairs": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Apa arti dari kata "我" (Wǒ)?',
-                    audioText: '我',
-                    options: [
-                      { text: 'Saya / Aku', isCorrect: true, emoji: '🙋' },
-                      { text: 'Kamu (Nǐ)', isCorrect: false, emoji: '👉' },
-                      { text: 'Dia (Tā)', isCorrect: false, emoji: '👤' },
-                      { text: 'Kalian (Nǐmen)', isCorrect: false, emoji: '👥' }
-                    ],
-                    explanation: '我 (Wǒ) adalah kata ganti orang pertama (Saya/Aku).'
+                    "source": "Water",
+                    "target": "Air putih"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan kata ganti Mandarin:',
-                    pairs: [
-                      { source: '我 (Wǒ)', target: 'Saya' },
-                      { source: '你 (Nǐ)', target: 'Kamu' },
-                      { source: '他 (Tā)', target: 'Dia (Laki-laki)' },
-                      { source: '我们 (Wǒmen)', target: 'Kami / Kita' }
-                    ],
-                    explanation: 'Kata ganti Mandarin telah tepat!'
+                    "source": "Coffee",
+                    "target": "Kopi"
+                  },
+                  {
+                    "source": "Tea",
+                    "target": "Teh"
+                  },
+                  {
+                    "source": "Milk",
+                    "target": "Susu"
                   }
-                ]
+                ],
+                "explanation": "Semua minuman telah dicocokkan!"
               }
             ]
           },
           {
-            id: 'zh_u2',
-            title: 'Unit 2: Belanja & Angka (数字与购物)',
-            desc: 'Angka 1-10 dan cara menanyakan harga di pasar.',
-            color: '#ce82ff',
-            lessons: [
+            "id": "en_l5",
+            "title": "Memesan Makanan",
+            "icon": "🍕",
+            "questions": [
               {
-                id: 'zh_l3',
-                title: 'Berapa Harganya?',
-                icon: '🏷️',
-                questions: [
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari \"This pizza is very delicious\"?",
+                "audioText": "This pizza is very delicious",
+                "options": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Bagaimana cara menanyakan "Berapa harganya?"',
-                    audioText: '这个多少钱',
-                    options: [
-                      { text: '这个多少钱？ (Zhège duōshao qián?)', isCorrect: true, emoji: '🏷️' },
-                      { text: '你在哪里？ (Nǐ zài nǎlǐ?)', isCorrect: false, emoji: '📍' },
-                      { text: '什么名字？ (Shénme míngzi?)', isCorrect: false, emoji: '❓' },
-                      { text: '太好吃了 (Tài hǎochī le)', isCorrect: false, emoji: '🍜' }
-                    ],
-                    explanation: '多少钱 (duōshao qián) = Berapa uang / harganya.'
+                    "text": "Pizza ini sangat lezat",
+                    "isCorrect": true,
+                    "emoji": "🍕"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan angka Hanzi:',
-                    pairs: [
-                      { source: '一 (Yī)', target: 'Satu (1)' },
-                      { source: '二 (Èr)', target: 'Dua (2)' },
-                      { source: '三 (Sān)', target: 'Tiga (3)' },
-                      { source: '十 (Shí)', target: 'Sepuluh (10)' }
-                    ],
-                    explanation: 'Angka-angka Hanzi dasar telah dicocokkan!'
+                    "text": "Pizza ini terlalu pedas",
+                    "isCorrect": false,
+                    "emoji": "🌶️"
+                  },
+                  {
+                    "text": "Saya tidak suka pizza",
+                    "isCorrect": false,
+                    "emoji": "❌"
+                  },
+                  {
+                    "text": "Harga pizza ini mahal",
+                    "isCorrect": false,
+                    "emoji": "💰"
                   }
-                ]
+                ],
+                "explanation": "\"Delicious\" berarti sangat lezat atau enak."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Saya ingin makan roti\"",
+                "audioText": "I want to eat bread",
+                "targetWords": [
+                  "I",
+                  "want",
+                  "to",
+                  "eat",
+                  "bread"
+                ],
+                "poolWords": [
+                  "I",
+                  "want",
+                  "drink",
+                  "to",
+                  "eat",
+                  "bread",
+                  "rice"
+                ],
+                "explanation": "\"Want to eat\" = ingin makan, \"bread\" = roti."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan makanan berikut:",
+                "pairs": [
+                  {
+                    "source": "Bread",
+                    "target": "Roti"
+                  },
+                  {
+                    "source": "Rice",
+                    "target": "Nasi"
+                  },
+                  {
+                    "source": "Chicken",
+                    "target": "Ayam"
+                  },
+                  {
+                    "source": "Fish",
+                    "target": "Ikan"
+                  }
+                ],
+                "explanation": "Kosakata makanan telah cocok!"
+              }
+            ]
+          },
+          {
+            "id": "en_l6",
+            "title": "Di Restoran & Bayar",
+            "icon": "🧾",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara meminta tagihan secara sopan?",
+                "audioText": "Can I have the bill please?",
+                "options": [
+                  {
+                    "text": "Can I have the bill please?",
+                    "isCorrect": true,
+                    "emoji": "🧾"
+                  },
+                  {
+                    "text": "Where is my food?",
+                    "isCorrect": false,
+                    "emoji": "🍲"
+                  },
+                  {
+                    "text": "I want more water",
+                    "isCorrect": false,
+                    "emoji": "💧"
+                  },
+                  {
+                    "text": "Is it free?",
+                    "isCorrect": false,
+                    "emoji": "🎁"
+                  }
+                ],
+                "explanation": "\"Can I have the bill please?\" adalah ungkapan standar meminta tagihan."
+              },
+              {
+                "type": "listening",
+                "prompt": "Dengarkan ucapan pelayan dan pilih artinya:",
+                "audioText": "A table for two people",
+                "options": [
+                  {
+                    "text": "Meja untuk dua orang",
+                    "isCorrect": true,
+                    "emoji": "🪑"
+                  },
+                  {
+                    "text": "Dua porsi makanan",
+                    "isCorrect": false,
+                    "emoji": "🍽️"
+                  },
+                  {
+                    "text": "Dua cangkir kopi",
+                    "isCorrect": false,
+                    "emoji": "☕"
+                  },
+                  {
+                    "text": "Buka jam dua siang",
+                    "isCorrect": false,
+                    "emoji": "⏰"
+                  }
+                ],
+                "explanation": "\"A table for two people\" = meja untuk 2 orang."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan istilah restoran:",
+                "pairs": [
+                  {
+                    "source": "Waiter",
+                    "target": "Pelayan"
+                  },
+                  {
+                    "source": "Menu",
+                    "target": "Daftar menu"
+                  },
+                  {
+                    "source": "Bill",
+                    "target": "Tagihan / Bon"
+                  },
+                  {
+                    "source": "Tip",
+                    "target": "Uang tip"
+                  }
+                ],
+                "explanation": "Istilah restoran telah dicocokkan!"
               }
             ]
           }
         ]
       },
-
-      spanish: {
-        id: 'spanish',
-        name: 'Bahasa Spanyol',
-        flag: '🇪🇸',
-        code: 'es-ES',
-        units: [
+      {
+        "id": "en_u3",
+        "title": "Unit 3: Perjalanan & Petunjuk Arah",
+        "desc": "Kosakata bandara, transportasi, dan cara menanyakan jalan.",
+        "color": "#1cb0f6",
+        "lessons": [
           {
-            id: 'es_u1',
-            title: 'Unit 1: Saludos & Dasar (Sapaan)',
-            desc: 'Mulai berbicara bahasa Spanyol dengan sapaan hangat.',
-            color: '#1cb0f6',
-            lessons: [
+            "id": "en_l7",
+            "title": "Di Bandara & Stasiun",
+            "icon": "✈️",
+            "questions": [
               {
-                id: 'es_l1',
-                title: '¡Hola! & Sapaan Dasar',
-                icon: '🇪🇸',
-                questions: [
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari kata \"Passport\"?",
+                "audioText": "Passport",
+                "options": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Bagaimana cara menyapa "Halo" dalam bahasa Spanyol?',
-                    audioText: 'Hola',
-                    options: [
-                      { text: '¡Hola!', isCorrect: true, emoji: '👋' },
-                      { text: 'Adiós', isCorrect: false, emoji: '🚶' },
-                      { text: 'Gracias', isCorrect: false, emoji: '🙏' },
-                      { text: 'Por favor', isCorrect: false, emoji: '✨' }
-                    ],
-                    explanation: '¡Hola! adalah sapaan ramah Spanyol paling populer di dunia.'
+                    "text": "Paspor (Dokumen perjalanan)",
+                    "isCorrect": true,
+                    "emoji": "🛂"
                   },
                   {
-                    type: 'word-bank',
-                    prompt: 'Susun kalimat: "Selamat pagi, apa kabar?"',
-                    audioText: 'Buenos días ¿cómo estás?',
-                    targetWords: ['Buenos', 'días,', '¿cómo', 'estás?'],
-                    poolWords: ['Buenos', 'noches,', 'días,', '¿cómo', 'estás?', 'hola'],
-                    explanation: '"Buenos días" = Selamat pagi, "¿cómo estás?" = bagaimana kabarmu?'
+                    "text": "Tiket bioskop",
+                    "isCorrect": false,
+                    "emoji": "🎟️"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan kata Spanyol dengan artinya:',
-                    pairs: [
-                      { source: '¡Hola!', target: 'Halo!' },
-                      { source: 'Gracias', target: 'Terima kasih' },
-                      { source: 'Adiós', target: 'Selamat tinggal' },
-                      { source: 'Por favor', target: 'Tolong / Silakan' }
-                    ],
-                    explanation: 'Sapaan Spanyol telah dicocokkan dengan benar!'
+                    "text": "Koper bagasi",
+                    "isCorrect": false,
+                    "emoji": "🧳"
                   },
                   {
-                    type: 'listening',
-                    prompt: 'Dengarkan kalimat Spanyol ini dan pilih artinya:',
-                    audioText: 'Mucho gusto',
-                    options: [
-                      { text: 'Senang berkenalan denganmu (Mucho gusto)', isCorrect: true, emoji: '🤝' },
-                      { text: 'Sampai jumpa besok (Hasta mañana)', isCorrect: false, emoji: '🌅' },
-                      { text: 'Berapa harganya?', isCorrect: false, emoji: '🏷️' },
-                      { text: 'Saya tidak paham', isCorrect: false, emoji: '❓' }
-                    ],
-                    explanation: '"Mucho gusto" diucapkan saat pertama kali berkenalan.'
+                    "text": "Pintu gerbang",
+                    "isCorrect": false,
+                    "emoji": "🚪"
                   }
-                ]
+                ],
+                "explanation": "\"Passport\" adalah paspor resmi untuk bepergian ke luar negeri."
               },
               {
-                id: 'es_l2',
-                title: 'Ungkapan Sehari-hari',
-                icon: '🌟',
-                questions: [
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Ini tiket penerbangan saya\"",
+                "audioText": "This is my flight ticket",
+                "targetWords": [
+                  "This",
+                  "is",
+                  "my",
+                  "flight",
+                  "ticket"
+                ],
+                "poolWords": [
+                  "This",
+                  "is",
+                  "are",
+                  "my",
+                  "flight",
+                  "ticket",
+                  "train",
+                  "bag"
+                ],
+                "explanation": "\"Flight ticket\" = tiket pesawat penerbangan."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan istilah transportasi:",
+                "pairs": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Bagaimana cara membalas ucapan "Gracias" (Terima kasih)?',
-                    audioText: 'De nada',
-                    options: [
-                      { text: 'De nada (Sama-sama)', isCorrect: true, emoji: '😊' },
-                      { text: 'Lo siento (Maaf)', isCorrect: false, emoji: '😔' },
-                      { text: 'Hasta luego (Sampai jumpa)', isCorrect: false, emoji: '👋' },
-                      { text: 'Buenas noches (Malam)', isCorrect: false, emoji: '🌙' }
-                    ],
-                    explanation: '"De nada" secara harfiah berarti "bukan apa-apa / sama-sama".'
+                    "source": "Airport",
+                    "target": "Bandara"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan ungkapan umum:',
-                    pairs: [
-                      { source: 'Sí', target: 'Ya' },
-                      { source: 'No', target: 'Tidak' },
-                      { source: 'Perdón', target: 'Maaf / Permisi' },
-                      { source: 'Amigo', target: 'Teman' }
-                    ],
-                    explanation: 'Kosakata dasar Spanyol tepat!'
+                    "source": "Train station",
+                    "target": "Stasiun kereta"
+                  },
+                  {
+                    "source": "Luggage",
+                    "target": "Koper / Bagasi"
+                  },
+                  {
+                    "source": "Flight",
+                    "target": "Penerbangan"
                   }
-                ]
+                ],
+                "explanation": "Istilah perjalanan telah tepat!"
               }
             ]
           },
           {
-            id: 'es_u2',
-            title: 'Unit 2: Comida & Restaurante',
-            desc: 'Kosakata makanan lezat dan memesan di restoran.',
-            color: '#58cc02',
-            lessons: [
+            "id": "en_l8",
+            "title": "Menanyakan Arah",
+            "icon": "🧭",
+            "questions": [
               {
-                id: 'es_l3',
-                title: 'Makanan & Minuman',
-                icon: '🍞',
-                questions: [
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menanyakan \"Di mana toilet?\"",
+                "audioText": "Where is the restroom?",
+                "options": [
                   {
-                    type: 'multiple-choice',
-                    prompt: 'Apa arti dari kata "Agua"?',
-                    audioText: 'Agua',
-                    options: [
-                      { text: 'Air (Agua)', isCorrect: true, emoji: '💧' },
-                      { text: 'Roti (Pan)', isCorrect: false, emoji: '🥖' },
-                      { text: 'Kopi (Café)', isCorrect: false, emoji: '☕' },
-                      { text: 'Apel (Manzana)', isCorrect: false, emoji: '🍎' }
-                    ],
-                    explanation: '"Agua" dalam bahasa Spanyol berarti air minum.'
+                    "text": "Where is the restroom?",
+                    "isCorrect": true,
+                    "emoji": "🚻"
                   },
                   {
-                    type: 'match-pairs',
-                    prompt: 'Cocokkan makanan Spanyol:',
-                    pairs: [
-                      { source: 'Pan', target: 'Roti' },
-                      { source: 'Agua', target: 'Air' },
-                      { source: 'Café', target: 'Kopi' },
-                      { source: 'Manzana', target: 'Apel' }
-                    ],
-                    explanation: 'Makanan Spanyol telah cocok!'
+                    "text": "What is the time?",
+                    "isCorrect": false,
+                    "emoji": "⌚"
+                  },
+                  {
+                    "text": "How much is it?",
+                    "isCorrect": false,
+                    "emoji": "💵"
+                  },
+                  {
+                    "text": "Can you help me?",
+                    "isCorrect": false,
+                    "emoji": "🙋"
                   }
-                ]
+                ],
+                "explanation": "\"Restroom\" atau \"bathroom\" berarti kamar kecil / toilet."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Belok kiri lalu jalan lurus\"",
+                "audioText": "Turn left and go straight",
+                "targetWords": [
+                  "Turn",
+                  "left",
+                  "and",
+                  "go",
+                  "straight"
+                ],
+                "poolWords": [
+                  "Turn",
+                  "left",
+                  "right",
+                  "and",
+                  "go",
+                  "straight",
+                  "stop"
+                ],
+                "explanation": "\"Turn left\" = belok kiri, \"go straight\" = jalan lurus."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan arah mata angin & petunjuk:",
+                "pairs": [
+                  {
+                    "source": "Turn right",
+                    "target": "Belok kanan"
+                  },
+                  {
+                    "source": "Turn left",
+                    "target": "Belok kiri"
+                  },
+                  {
+                    "source": "Go straight",
+                    "target": "Jalan lurus"
+                  },
+                  {
+                    "source": "Near here",
+                    "target": "Dekat sini"
+                  }
+                ],
+                "explanation": "Arah petunjuk jalan telah cocok!"
+              }
+            ]
+          },
+          {
+            "id": "en_l9",
+            "title": "Hotel & Menginap",
+            "icon": "🏨",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari \"I have a room reservation\"?",
+                "audioText": "I have a room reservation",
+                "options": [
+                  {
+                    "text": "Saya memiliki reservasi kamar",
+                    "isCorrect": true,
+                    "emoji": "🏨"
+                  },
+                  {
+                    "text": "Saya ingin memesan makanan",
+                    "isCorrect": false,
+                    "emoji": "🍽️"
+                  },
+                  {
+                    "text": "Kamar saya kotor",
+                    "isCorrect": false,
+                    "emoji": "🧹"
+                  },
+                  {
+                    "text": "Kunci kamar saya hilang",
+                    "isCorrect": false,
+                    "emoji": "🔑"
+                  }
+                ],
+                "explanation": "\"Reservation\" berarti pesanan atau booking terlebih dahulu."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan perlengkapan hotel:",
+                "pairs": [
+                  {
+                    "source": "Room key",
+                    "target": "Kunci kamar"
+                  },
+                  {
+                    "source": "Towel",
+                    "target": "Handuk"
+                  },
+                  {
+                    "source": "Breakfast",
+                    "target": "Sarapan"
+                  },
+                  {
+                    "source": "Wi-Fi password",
+                    "target": "Kata sandi Wi-Fi"
+                  }
+                ],
+                "explanation": "Perlengkapan hotel cocok!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "en_u4",
+        "title": "Unit 4: Kehidupan & Waktu",
+        "desc": "Rutinitas sehari-hari, jam, hari dalam seminggu, dan hobi.",
+        "color": "#ce82ff",
+        "lessons": [
+          {
+            "id": "en_l10",
+            "title": "Rutinitas Pagi",
+            "icon": "⏰",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari \"I wake up at six in the morning\"?",
+                "audioText": "I wake up at six in the morning",
+                "options": [
+                  {
+                    "text": "Saya bangun jam enam pagi",
+                    "isCorrect": true,
+                    "emoji": "🌅"
+                  },
+                  {
+                    "text": "Saya tidur jam enam sore",
+                    "isCorrect": false,
+                    "emoji": "🌆"
+                  },
+                  {
+                    "text": "Saya sarapan jam tujuh",
+                    "isCorrect": false,
+                    "emoji": "🍳"
+                  },
+                  {
+                    "text": "Saya berangkat kerja",
+                    "isCorrect": false,
+                    "emoji": "💼"
+                  }
+                ],
+                "explanation": "\"Wake up\" berarti bangun tidur."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Saya menggosok gigi setiap hari\"",
+                "audioText": "I brush my teeth every day",
+                "targetWords": [
+                  "I",
+                  "brush",
+                  "my",
+                  "teeth",
+                  "every",
+                  "day"
+                ],
+                "poolWords": [
+                  "I",
+                  "brush",
+                  "wash",
+                  "my",
+                  "teeth",
+                  "hair",
+                  "every",
+                  "day"
+                ],
+                "explanation": "\"Brush teeth\" = menggosok gigi."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan rutinitas harian:",
+                "pairs": [
+                  {
+                    "source": "Breakfast",
+                    "target": "Sarapan pagi"
+                  },
+                  {
+                    "source": "Lunch",
+                    "target": "Makan siang"
+                  },
+                  {
+                    "source": "Dinner",
+                    "target": "Makan malam"
+                  },
+                  {
+                    "source": "Sleep",
+                    "target": "Tidur"
+                  }
+                ],
+                "explanation": "Waktu makan dan tidur telah dipasangkan!"
+              }
+            ]
+          },
+          {
+            "id": "en_l11",
+            "title": "Hari & Waktu",
+            "icon": "📅",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menanyakan jam dalam bahasa Inggris?",
+                "audioText": "What time is it now?",
+                "options": [
+                  {
+                    "text": "What time is it now?",
+                    "isCorrect": true,
+                    "emoji": "⌚"
+                  },
+                  {
+                    "text": "What day is today?",
+                    "isCorrect": false,
+                    "emoji": "📅"
+                  },
+                  {
+                    "text": "When is your birthday?",
+                    "isCorrect": false,
+                    "emoji": "🎂"
+                  },
+                  {
+                    "text": "How old are you?",
+                    "isCorrect": false,
+                    "emoji": "🎈"
+                  }
+                ],
+                "explanation": "\"What time is it?\" menanyakan waktu atau jam saat ini."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan nama-nama hari:",
+                "pairs": [
+                  {
+                    "source": "Monday",
+                    "target": "Senin"
+                  },
+                  {
+                    "source": "Wednesday",
+                    "target": "Rabu"
+                  },
+                  {
+                    "source": "Friday",
+                    "target": "Jumat"
+                  },
+                  {
+                    "source": "Sunday",
+                    "target": "Minggu"
+                  }
+                ],
+                "explanation": "Nama hari bahasa Inggris telah cocok!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "en_u5",
+        "title": "Unit 5: Belanja & Angka",
+        "desc": "Berbelanja di pasar, tawar menawar, pakaian, dan pembayaran.",
+        "color": "#ff4b4b",
+        "lessons": [
+          {
+            "id": "en_l12",
+            "title": "Angka & Hitungan",
+            "icon": "🔢",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Berapa hasil dari \"Ten plus five\"?",
+                "audioText": "Ten plus five is fifteen",
+                "options": [
+                  {
+                    "text": "Fifteen (15)",
+                    "isCorrect": true,
+                    "emoji": "🔢"
+                  },
+                  {
+                    "text": "Twelve (12)",
+                    "isCorrect": false,
+                    "emoji": "🔟"
+                  },
+                  {
+                    "text": "Twenty (20)",
+                    "isCorrect": false,
+                    "emoji": "2️⃣"
+                  },
+                  {
+                    "text": "Fifty (50)",
+                    "isCorrect": false,
+                    "emoji": "5️⃣"
+                  }
+                ],
+                "explanation": "Ten (10) + five (5) = fifteen (15)."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan angka bahasa Inggris:",
+                "pairs": [
+                  {
+                    "source": "One",
+                    "target": "Satu (1)"
+                  },
+                  {
+                    "source": "Five",
+                    "target": "Lima (5)"
+                  },
+                  {
+                    "source": "Ten",
+                    "target": "Sepuluh (10)"
+                  },
+                  {
+                    "source": "Hundred",
+                    "target": "Seratus (100)"
+                  }
+                ],
+                "explanation": "Angka bahasa Inggris telah cocok!"
+              }
+            ]
+          },
+          {
+            "id": "en_l13",
+            "title": "Toko Pakaian & Kasir",
+            "icon": "🛍️",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menanyakan harga sebuah baju?",
+                "audioText": "How much is this shirt?",
+                "options": [
+                  {
+                    "text": "How much is this shirt?",
+                    "isCorrect": true,
+                    "emoji": "👕"
+                  },
+                  {
+                    "text": "What color is this shirt?",
+                    "isCorrect": false,
+                    "emoji": "🎨"
+                  },
+                  {
+                    "text": "Where is the shirt from?",
+                    "isCorrect": false,
+                    "emoji": "🏷️"
+                  },
+                  {
+                    "text": "Can I wash this shirt?",
+                    "isCorrect": false,
+                    "emoji": "🧼"
+                  }
+                ],
+                "explanation": "\"How much is this...?\" digunakan untuk menanyakan harga barang."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Bisakah saya membayar dengan kartu kredit?\"",
+                "audioText": "Can I pay with credit card?",
+                "targetWords": [
+                  "Can",
+                  "I",
+                  "pay",
+                  "with",
+                  "credit",
+                  "card?"
+                ],
+                "poolWords": [
+                  "Can",
+                  "I",
+                  "pay",
+                  "with",
+                  "by",
+                  "credit",
+                  "card?",
+                  "cash"
+                ],
+                "explanation": "\"Pay with credit card\" = membayar memakai kartu kredit."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan istilah belanja:",
+                "pairs": [
+                  {
+                    "source": "Cash",
+                    "target": "Uang tunai"
+                  },
+                  {
+                    "source": "Discount",
+                    "target": "Potongan harga"
+                  },
+                  {
+                    "source": "Receipt",
+                    "target": "Struk pembelian"
+                  },
+                  {
+                    "source": "Expensive",
+                    "target": "Mahal"
+                  }
+                ],
+                "explanation": "Istilah belanja telah dikuasai!"
               }
             ]
           }
         ]
       }
-    };
+    ]
+  },
+  "mandarin": {
+    "id": "mandarin",
+    "name": "Bahasa Mandarin",
+    "nativeName": "普通话 / 中文",
+    "flag": "🇨🇳",
+    "code": "zh-CN",
+    "badgeColor": "#ff4b4b",
+    "welcomeMsg": "热烈欢迎！Ayo pelajari Mandarin dengan Hanzi & Pinyin! 🇨🇳",
+    "units": [
+      {
+        "id": "zh_u1",
+        "title": "Unit 1: Sapaan Dasar (问候与基础)",
+        "desc": "Aksara Hanzi, nada Pinyin, dan ungkapan kesopanan pertama.",
+        "color": "#ff4b4b",
+        "lessons": [
+          {
+            "id": "zh_l1",
+            "title": "Halo & Terima Kasih",
+            "icon": "👋",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Pilih Hanzi dan Pinyin untuk mengucapkan \"Halo\":",
+                "audioText": "你好",
+                "options": [
+                  {
+                    "text": "你好 (Nǐ hǎo)",
+                    "isCorrect": true,
+                    "emoji": "👋"
+                  },
+                  {
+                    "text": "再见 (Zàijiàn)",
+                    "isCorrect": false,
+                    "emoji": "🚶"
+                  },
+                  {
+                    "text": "谢谢 (Xièxie)",
+                    "isCorrect": false,
+                    "emoji": "🙏"
+                  },
+                  {
+                    "text": "对不起 (Duìbuqǐ)",
+                    "isCorrect": false,
+                    "emoji": "😔"
+                  }
+                ],
+                "explanation": "你好 (Nǐ hǎo) tersusun dari 你 (kamu) + 好 (baik) = Halo!"
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Terima kasih banyak\"",
+                "audioText": "非常感谢",
+                "targetWords": [
+                  "非常",
+                  "感谢"
+                ],
+                "poolWords": [
+                  "非常 (fēicháng)",
+                  "感谢 (gǎnxiè)",
+                  "你好 (nǐhǎo)",
+                  "再见 (zàijiàn)"
+                ],
+                "explanation": "非常 (fēicháng = sangat) + 感谢 (gǎnxiè = berterima kasih)."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan Hanzi dengan artinya:",
+                "pairs": [
+                  {
+                    "source": "你好 (Nǐ hǎo)",
+                    "target": "Halo"
+                  },
+                  {
+                    "source": "谢谢 (Xièxie)",
+                    "target": "Terima kasih"
+                  },
+                  {
+                    "source": "再见 (Zàijiàn)",
+                    "target": "Sampai jumpa"
+                  },
+                  {
+                    "source": "对不起 (Duìbuqǐ)",
+                    "target": "Maaf"
+                  }
+                ],
+                "explanation": "Semua sapaan Mandarin telah dipasangkan dengan tepat!"
+              },
+              {
+                "type": "listening",
+                "prompt": "Dengarkan audio dan tebak kata yang diucapkan:",
+                "audioText": "再见",
+                "options": [
+                  {
+                    "text": "再见 (Zàijiàn - Sampai jumpa)",
+                    "isCorrect": true,
+                    "emoji": "👋"
+                  },
+                  {
+                    "text": "你好 (Nǐ hǎo - Halo)",
+                    "isCorrect": false,
+                    "emoji": "😊"
+                  },
+                  {
+                    "text": "不客气 (Bú kèqi - Sama-sama)",
+                    "isCorrect": false,
+                    "emoji": "✨"
+                  },
+                  {
+                    "text": "早上好 (Zǎoshang hǎo - Pagi)",
+                    "isCorrect": false,
+                    "emoji": "☀️"
+                  }
+                ],
+                "explanation": "再见 (Zàijiàn) artinya sampai bertemu kembali."
+              }
+            ]
+          },
+          {
+            "id": "zh_l2",
+            "title": "Perkenalan Diri (我是...)",
+            "icon": "🙋",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari kata \"我\" (Wǒ)?",
+                "audioText": "我",
+                "options": [
+                  {
+                    "text": "Saya / Aku",
+                    "isCorrect": true,
+                    "emoji": "🙋"
+                  },
+                  {
+                    "text": "Kamu (Nǐ)",
+                    "isCorrect": false,
+                    "emoji": "👉"
+                  },
+                  {
+                    "text": "Dia (Tā)",
+                    "isCorrect": false,
+                    "emoji": "👤"
+                  },
+                  {
+                    "text": "Kalian (Nǐmen)",
+                    "isCorrect": false,
+                    "emoji": "👥"
+                  }
+                ],
+                "explanation": "我 (Wǒ) adalah kata ganti orang pertama (Saya/Aku)."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Nama saya adalah David\"",
+                "audioText": "我叫大卫",
+                "targetWords": [
+                  "我",
+                  "叫",
+                  "大卫"
+                ],
+                "poolWords": [
+                  "我 (Wǒ)",
+                  "叫 (jiào)",
+                  "大卫 (Dàwèi)",
+                  "是 (shì)",
+                  "你 (nǐ)"
+                ],
+                "explanation": "我叫... (Wǒ jiào...) = Saya bernama..."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan kata ganti Mandarin:",
+                "pairs": [
+                  {
+                    "source": "我 (Wǒ)",
+                    "target": "Saya"
+                  },
+                  {
+                    "source": "你 (Nǐ)",
+                    "target": "Kamu"
+                  },
+                  {
+                    "source": "他 (Tā)",
+                    "target": "Dia (Laki-laki)"
+                  },
+                  {
+                    "source": "我们 (Wǒmen)",
+                    "target": "Kami / Kita"
+                  }
+                ],
+                "explanation": "Kata ganti Mandarin telah tepat!"
+              }
+            ]
+          },
+          {
+            "id": "zh_l3",
+            "title": "Tanya Kabar (你好吗？)",
+            "icon": "💬",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari pertanyaan \"你好吗？\" (Nǐ hǎo ma?)",
+                "audioText": "你好吗",
+                "options": [
+                  {
+                    "text": "Apa kabarmu?",
+                    "isCorrect": true,
+                    "emoji": "😊"
+                  },
+                  {
+                    "text": "Siapa namamu?",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  },
+                  {
+                    "text": "Kamu mau ke mana?",
+                    "isCorrect": false,
+                    "emoji": "🚶"
+                  },
+                  {
+                    "text": "Kamu makan apa?",
+                    "isCorrect": false,
+                    "emoji": "🍚"
+                  }
+                ],
+                "explanation": "Partikel 吗 (ma) di akhir kalimat mengubahnya menjadi pertanyaan kabar."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan respon tanya kabar:",
+                "pairs": [
+                  {
+                    "source": "我很好 (Wǒ hěn hǎo)",
+                    "target": "Saya sangat baik"
+                  },
+                  {
+                    "source": "你呢？ (Nǐ ne?)",
+                    "target": "Bagaimana denganmu?"
+                  },
+                  {
+                    "source": "我也很好 (Wǒ yě hěn hǎo)",
+                    "target": "Saya juga sangat baik"
+                  },
+                  {
+                    "source": "不客气 (Bú kèqi)",
+                    "target": "Sama-sama"
+                  }
+                ],
+                "explanation": "Bagus! Respon percakapan kabar telah dicocokkan!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "zh_u2",
+        "title": "Unit 2: Angka & Belanja (数字与购物)",
+        "desc": "Angka 1-10, uang, dan cara menanyakan harga di pasar.",
+        "color": "#ce82ff",
+        "lessons": [
+          {
+            "id": "zh_l4",
+            "title": "Angka 1 sampai 10",
+            "icon": "🔢",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Hanzi untuk angka 8 (Bā) yang melambangkan keberuntungan adalah:",
+                "audioText": "八",
+                "options": [
+                  {
+                    "text": "八 (Bā - 8)",
+                    "isCorrect": true,
+                    "emoji": "🎱"
+                  },
+                  {
+                    "text": "六 (Liù - 6)",
+                    "isCorrect": false,
+                    "emoji": "6️⃣"
+                  },
+                  {
+                    "text": "十 (Shí - 10)",
+                    "isCorrect": false,
+                    "emoji": "🔟"
+                  },
+                  {
+                    "text": "四 (Sì - 4)",
+                    "isCorrect": false,
+                    "emoji": "4️⃣"
+                  }
+                ],
+                "explanation": "八 (Bā) adalah angka delapan."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan angka Hanzi:",
+                "pairs": [
+                  {
+                    "source": "一 (Yī)",
+                    "target": "Satu (1)"
+                  },
+                  {
+                    "source": "五 (Wǔ)",
+                    "target": "Lima (5)"
+                  },
+                  {
+                    "source": "七 (Qī)",
+                    "target": "Tujuh (7)"
+                  },
+                  {
+                    "source": "十 (Shí)",
+                    "target": "Sepuluh (10)"
+                  }
+                ],
+                "explanation": "Angka-angka Hanzi dasar telah dicocokkan!"
+              }
+            ]
+          },
+          {
+            "id": "zh_l5",
+            "title": "Berapa Harganya?",
+            "icon": "🏷️",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menanyakan \"Berapa harganya?\"",
+                "audioText": "这个多少钱",
+                "options": [
+                  {
+                    "text": "这个多少钱？ (Zhège duōshao qián?)",
+                    "isCorrect": true,
+                    "emoji": "🏷️"
+                  },
+                  {
+                    "text": "你在哪里？ (Nǐ zài nǎlǐ?)",
+                    "isCorrect": false,
+                    "emoji": "📍"
+                  },
+                  {
+                    "text": "什么名字？ (Shénme míngzi?)",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  },
+                  {
+                    "text": "太好吃了 (Tài hǎochī le)",
+                    "isCorrect": false,
+                    "emoji": "🍜"
+                  }
+                ],
+                "explanation": "多少钱 (duōshao qián) = Berapa uang / harganya."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Terlalu mahal, murah sedikit\"",
+                "audioText": "太贵了便宜一点",
+                "targetWords": [
+                  "太贵了",
+                  "便宜一点"
+                ],
+                "poolWords": [
+                  "太贵了 (tài guì le)",
+                  "便宜一点 (piányi yìdiǎn)",
+                  "很好 (hěn hǎo)",
+                  "多少钱 (duōshao qián)"
+                ],
+                "explanation": "太贵了 = terlalu mahal, 便宜一点 = lebih murah sedikit."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan istilah belanja Mandarin:",
+                "pairs": [
+                  {
+                    "source": "钱 (Qián)",
+                    "target": "Uang"
+                  },
+                  {
+                    "source": "贵 (Guì)",
+                    "target": "Mahal"
+                  },
+                  {
+                    "source": "便宜 (Piányi)",
+                    "target": "Murah"
+                  },
+                  {
+                    "source": "买单 (Mǎidān)",
+                    "target": "Bayar tagihan"
+                  }
+                ],
+                "explanation": "Istilah belanja Mandarin berhasil dipasangkan!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "zh_u3",
+        "title": "Unit 3: Restoran & Makanan (美食与点餐)",
+        "desc": "Minuman, hidangan lezat, dan memesan makanan di resto.",
+        "color": "#ff9600",
+        "lessons": [
+          {
+            "id": "zh_l6",
+            "title": "Minuman & Teh (喝茶)",
+            "icon": "🍵",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari \"我想喝水\" (Wǒ xiǎng hē shuǐ)?",
+                "audioText": "我想喝水",
+                "options": [
+                  {
+                    "text": "Saya ingin minum air putih",
+                    "isCorrect": true,
+                    "emoji": "💧"
+                  },
+                  {
+                    "text": "Saya ingin makan mi",
+                    "isCorrect": false,
+                    "emoji": "🍜"
+                  },
+                  {
+                    "text": "Saya suka teh hijau",
+                    "isCorrect": false,
+                    "emoji": "🍵"
+                  },
+                  {
+                    "text": "Saya mau kopi hangat",
+                    "isCorrect": false,
+                    "emoji": "☕"
+                  }
+                ],
+                "explanation": "喝水 (hē shuǐ) = minum air."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan minuman Mandarin:",
+                "pairs": [
+                  {
+                    "source": "茶 (Chá)",
+                    "target": "Teh"
+                  },
+                  {
+                    "source": "咖啡 (Kāfēi)",
+                    "target": "Kopi"
+                  },
+                  {
+                    "source": "水 (Shuǐ)",
+                    "target": "Air"
+                  },
+                  {
+                    "source": "牛奶 (Niúnǎi)",
+                    "target": "Susu sapi"
+                  }
+                ],
+                "explanation": "Minuman Mandarin telah cocok!"
+              }
+            ]
+          },
+          {
+            "id": "zh_l7",
+            "title": "Makanan Lezat (米饭与面条)",
+            "icon": "🍜",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana memuji makanan enak dalam bahasa Mandarin?",
+                "audioText": "很好吃",
+                "options": [
+                  {
+                    "text": "很好吃！ (Hěn hǎochī!)",
+                    "isCorrect": true,
+                    "emoji": "😋"
+                  },
+                  {
+                    "text": "太大了 (Tài dà le)",
+                    "isCorrect": false,
+                    "emoji": "🐘"
+                  },
+                  {
+                    "text": "不好看 (Bù hǎokàn)",
+                    "isCorrect": false,
+                    "emoji": "🙈"
+                  },
+                  {
+                    "text": "没有了 (Méiyǒu le)",
+                    "isCorrect": false,
+                    "emoji": "🚫"
+                  }
+                ],
+                "explanation": "好吃 (hǎochī) = lezat / enak dimakan."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Saya ingin makan mi\"",
+                "audioText": "我要吃面条",
+                "targetWords": [
+                  "我",
+                  "要",
+                  "吃",
+                  "面条"
+                ],
+                "poolWords": [
+                  "我 (Wǒ)",
+                  "要 (yào)",
+                  "吃 (chī)",
+                  "面条 (miàntiáo)",
+                  "米饭 (mǐfàn)"
+                ],
+                "explanation": "吃面条 (chī miàntiáo) = makan mi."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan makanan Mandarin:",
+                "pairs": [
+                  {
+                    "source": "米饭 (Mǐfàn)",
+                    "target": "Nasi putih"
+                  },
+                  {
+                    "source": "面条 (Miàntiáo)",
+                    "target": "Mi"
+                  },
+                  {
+                    "source": "包子 (Bāozi)",
+                    "target": "Bakpao"
+                  },
+                  {
+                    "source": "饺子 (Jiǎozi)",
+                    "target": "Pangsit / Dumpling"
+                  }
+                ],
+                "explanation": "Kosakata kuliner Mandarin tepat!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "zh_u4",
+        "title": "Unit 4: Arah & Transportasi (方向与交通)",
+        "desc": "Menanyakan jalan, naik taksi, stasiun subway, dan airport.",
+        "color": "#1cb0f6",
+        "lessons": [
+          {
+            "id": "zh_l8",
+            "title": "Di Mana Toilet? (洗手间在哪里？)",
+            "icon": "🚻",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Arti dari \"请问，洗手间在哪里？\" (Qǐngwèn, xǐshǒujiān zài nǎlǐ?):",
+                "audioText": "请问洗手间在哪里",
+                "options": [
+                  {
+                    "text": "Permisi, toilet ada di mana?",
+                    "isCorrect": true,
+                    "emoji": "🚻"
+                  },
+                  {
+                    "text": "Permisi, jam berapa sekarang?",
+                    "isCorrect": false,
+                    "emoji": "⌚"
+                  },
+                  {
+                    "text": "Di mana stasiun kereta?",
+                    "isCorrect": false,
+                    "emoji": "🚆"
+                  },
+                  {
+                    "text": "Berapa harga tiket ini?",
+                    "isCorrect": false,
+                    "emoji": "🎫"
+                  }
+                ],
+                "explanation": "洗手间 (xǐshǒujiān) = toilet/kamar kecil, 在哪里 (zài nǎlǐ) = berada di mana."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan arah petunjuk Mandarin:",
+                "pairs": [
+                  {
+                    "source": "左边 (Zuǒbiān)",
+                    "target": "Sebelah kiri"
+                  },
+                  {
+                    "source": "右边 (Yòubiān)",
+                    "target": "Sebelah kanan"
+                  },
+                  {
+                    "source": "直走 (Zhí zǒu)",
+                    "target": "Jalan lurus"
+                  },
+                  {
+                    "source": "前面 (Qiánmiàn)",
+                    "target": "Di depan"
+                  }
+                ],
+                "explanation": "Arah petunjuk jalan Mandarin telah cocok!"
+              }
+            ]
+          },
+          {
+            "id": "zh_l9",
+            "title": "Transportasi Kota (地铁与出租车)",
+            "icon": "🚕",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari \"我想去机场\" (Wǒ xiǎng qù jīchǎng)?",
+                "audioText": "我想去机场",
+                "options": [
+                  {
+                    "text": "Saya ingin pergi ke bandara",
+                    "isCorrect": true,
+                    "emoji": "✈️"
+                  },
+                  {
+                    "text": "Saya ingin pulang ke rumah",
+                    "isCorrect": false,
+                    "emoji": "🏠"
+                  },
+                  {
+                    "text": "Saya mau naik bus sekolah",
+                    "isCorrect": false,
+                    "emoji": "🚌"
+                  },
+                  {
+                    "text": "Di mana hotel saya?",
+                    "isCorrect": false,
+                    "emoji": "🏨"
+                  }
+                ],
+                "explanation": "机场 (jīchǎng) = bandar udara (airport)."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan jenis transportasi:",
+                "pairs": [
+                  {
+                    "source": "出租车 (Chūzūchē)",
+                    "target": "Taksi"
+                  },
+                  {
+                    "source": "地铁 (Dìtiě)",
+                    "target": "Kereta bawah tanah / MRT"
+                  },
+                  {
+                    "source": "公交车 (Gōngjiāochē)",
+                    "target": "Bus kota"
+                  },
+                  {
+                    "source": "火车站 (Huǒchēzhàn)",
+                    "target": "Stasiun kereta api"
+                  }
+                ],
+                "explanation": "Transportasi kota Mandarin cocok!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "zh_u5",
+        "title": "Unit 5: Keluarga & Waktu (家庭与时间)",
+        "desc": "Sebutan keluarga, hari dalam seminggu, dan waktu.",
+        "color": "#58cc02",
+        "lessons": [
+          {
+            "id": "zh_l10",
+            "title": "Anggota Keluarga (家庭)",
+            "icon": "👨‍👩‍👧",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Hanzi untuk memanggil \"Ibu\" adalah:",
+                "audioText": "妈妈",
+                "options": [
+                  {
+                    "text": "妈妈 (Māma - Ibu)",
+                    "isCorrect": true,
+                    "emoji": "👩"
+                  },
+                  {
+                    "text": "爸爸 (Bàba - Ayah)",
+                    "isCorrect": false,
+                    "emoji": "👨"
+                  },
+                  {
+                    "text": "哥哥 (Gēge - Abang)",
+                    "isCorrect": false,
+                    "emoji": "👦"
+                  },
+                  {
+                    "text": "妹妹 (Mèimei - Adik per.)",
+                    "isCorrect": false,
+                    "emoji": "👧"
+                  }
+                ],
+                "explanation": "妈妈 (Māma) berarti Ibu."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan anggota keluarga Mandarin:",
+                "pairs": [
+                  {
+                    "source": "爸爸 (Bàba)",
+                    "target": "Ayah"
+                  },
+                  {
+                    "source": "妈妈 (Māma)",
+                    "target": "Ibu"
+                  },
+                  {
+                    "source": "哥哥 (Gēge)",
+                    "target": "Kakak laki-laki"
+                  },
+                  {
+                    "source": "妹妹 (Mèimei)",
+                    "target": "Adik perempuan"
+                  }
+                ],
+                "explanation": "Anggota keluarga Mandarin lengkap!"
+              }
+            ]
+          },
+          {
+            "id": "zh_l11",
+            "title": "Waktu & Jam (现在几点？)",
+            "icon": "⏰",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari pertanyaan \"现在几点？\" (Xiànzài jǐ diǎn?):",
+                "audioText": "现在几点",
+                "options": [
+                  {
+                    "text": "Sekarang jam berapa?",
+                    "isCorrect": true,
+                    "emoji": "⌚"
+                  },
+                  {
+                    "text": "Hari ini tanggal berapa?",
+                    "isCorrect": false,
+                    "emoji": "📅"
+                  },
+                  {
+                    "text": "Berapa usiamu sekarang?",
+                    "isCorrect": false,
+                    "emoji": "🎂"
+                  },
+                  {
+                    "text": "Kapan kamu pulang?",
+                    "isCorrect": false,
+                    "emoji": "🏠"
+                  }
+                ],
+                "explanation": "现在 (xiànzài) = sekarang, 几点 (jǐ diǎn) = jam berapa."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan waktu dalam sehari:",
+                "pairs": [
+                  {
+                    "source": "今天 (Jīntiān)",
+                    "target": "Hari ini"
+                  },
+                  {
+                    "source": "明天 (Míngtiān)",
+                    "target": "Besok"
+                  },
+                  {
+                    "source": "早上 (Zǎoshang)",
+                    "target": "Pagi hari"
+                  },
+                  {
+                    "source": "晚上 (Wǎnshang)",
+                    "target": "Malam hari"
+                  }
+                ],
+                "explanation": "Keterangan waktu Mandarin telah cocok!"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "spanish": {
+    "id": "spanish",
+    "name": "Bahasa Spanyol",
+    "nativeName": "Español",
+    "flag": "🇪🇸",
+    "code": "es-ES",
+    "badgeColor": "#1cb0f6",
+    "welcomeMsg": "¡Bienvenido! Ayo mulai petualangan seru Bahasa Spanyol! 🇪🇸",
+    "units": [
+      {
+        "id": "es_u1",
+        "title": "Unit 1: Saludos & Dasar (Sapaan)",
+        "desc": "Mulai berbicara bahasa Spanyol dengan sapaan hangat.",
+        "color": "#1cb0f6",
+        "lessons": [
+          {
+            "id": "es_l1",
+            "title": "¡Hola! & Sapaan Dasar",
+            "icon": "👋",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menyapa \"Halo\" dalam bahasa Spanyol?",
+                "audioText": "Hola",
+                "options": [
+                  {
+                    "text": "¡Hola!",
+                    "isCorrect": true,
+                    "emoji": "👋"
+                  },
+                  {
+                    "text": "Adiós",
+                    "isCorrect": false,
+                    "emoji": "🚶"
+                  },
+                  {
+                    "text": "Gracias",
+                    "isCorrect": false,
+                    "emoji": "🙏"
+                  },
+                  {
+                    "text": "Por favor",
+                    "isCorrect": false,
+                    "emoji": "✨"
+                  }
+                ],
+                "explanation": "¡Hola! adalah sapaan ramah Spanyol paling populer di dunia."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Selamat pagi, apa kabar?\"",
+                "audioText": "Buenos días ¿cómo estás?",
+                "targetWords": [
+                  "Buenos",
+                  "días,",
+                  "¿cómo",
+                  "estás?"
+                ],
+                "poolWords": [
+                  "Buenos",
+                  "noches,",
+                  "días,",
+                  "¿cómo",
+                  "estás?",
+                  "hola"
+                ],
+                "explanation": "\"Buenos días\" = Selamat pagi, \"¿cómo estás?\" = bagaimana kabarmu?"
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan kata Spanyol dengan artinya:",
+                "pairs": [
+                  {
+                    "source": "¡Hola!",
+                    "target": "Halo!"
+                  },
+                  {
+                    "source": "Gracias",
+                    "target": "Terima kasih"
+                  },
+                  {
+                    "source": "Adiós",
+                    "target": "Selamat tinggal"
+                  },
+                  {
+                    "source": "Por favor",
+                    "target": "Tolong / Silakan"
+                  }
+                ],
+                "explanation": "Sapaan Spanyol telah dicocokkan dengan benar!"
+              },
+              {
+                "type": "listening",
+                "prompt": "Dengarkan kalimat Spanyol ini dan pilih artinya:",
+                "audioText": "Mucho gusto",
+                "options": [
+                  {
+                    "text": "Senang berkenalan denganmu (Mucho gusto)",
+                    "isCorrect": true,
+                    "emoji": "🤝"
+                  },
+                  {
+                    "text": "Sampai jumpa besok (Hasta mañana)",
+                    "isCorrect": false,
+                    "emoji": "🌅"
+                  },
+                  {
+                    "text": "Berapa harganya?",
+                    "isCorrect": false,
+                    "emoji": "🏷️"
+                  },
+                  {
+                    "text": "Saya tidak paham",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  }
+                ],
+                "explanation": "\"Mucho gusto\" diucapkan saat pertama kali berkenalan."
+              }
+            ]
+          },
+          {
+            "id": "es_l2",
+            "title": "Perkenalan Diri",
+            "icon": "🙋",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara mengatakan \"Nama saya Maria\"?",
+                "audioText": "Me llamo Maria",
+                "options": [
+                  {
+                    "text": "Me llamo Maria",
+                    "isCorrect": true,
+                    "emoji": "🙋"
+                  },
+                  {
+                    "text": "Soy de España",
+                    "isCorrect": false,
+                    "emoji": "🇪🇸"
+                  },
+                  {
+                    "text": "Tengo veinte años",
+                    "isCorrect": false,
+                    "emoji": "🎂"
+                  },
+                  {
+                    "text": "Vivo en Madrid",
+                    "isCorrect": false,
+                    "emoji": "🏙️"
+                  }
+                ],
+                "explanation": "\"Me llamo...\" secara harfiah berarti \"Nama saya dipanggil...\"."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Saya senang bertemu denganmu\"",
+                "audioText": "Encantado de conocerte",
+                "targetWords": [
+                  "Encantado",
+                  "de",
+                  "conocerte"
+                ],
+                "poolWords": [
+                  "Encantado",
+                  "de",
+                  "para",
+                  "conocerte",
+                  "amigo"
+                ],
+                "explanation": "\"Encantado de conocerte\" = Senang bertemu denganmu."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan ungkapan umum:",
+                "pairs": [
+                  {
+                    "source": "Sí",
+                    "target": "Ya"
+                  },
+                  {
+                    "source": "No",
+                    "target": "Tidak"
+                  },
+                  {
+                    "source": "Perdón",
+                    "target": "Maaf / Permisi"
+                  },
+                  {
+                    "source": "Amigo",
+                    "target": "Teman"
+                  }
+                ],
+                "explanation": "Kosakata dasar Spanyol tepat!"
+              }
+            ]
+          },
+          {
+            "id": "es_l3",
+            "title": "Ungkapan Sehari-hari",
+            "icon": "🌟",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara membalas ucapan \"Gracias\" (Terima kasih)?",
+                "audioText": "De nada",
+                "options": [
+                  {
+                    "text": "De nada (Sama-sama)",
+                    "isCorrect": true,
+                    "emoji": "😊"
+                  },
+                  {
+                    "text": "Lo siento (Maaf)",
+                    "isCorrect": false,
+                    "emoji": "😔"
+                  },
+                  {
+                    "text": "Hasta luego (Sampai jumpa)",
+                    "isCorrect": false,
+                    "emoji": "👋"
+                  },
+                  {
+                    "text": "Buenas noches (Malam)",
+                    "isCorrect": false,
+                    "emoji": "🌙"
+                  }
+                ],
+                "explanation": "\"De nada\" secara harfiah berarti \"bukan apa-apa / sama-sama\"."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan ungkapan sapaan waktu:",
+                "pairs": [
+                  {
+                    "source": "Buenos días",
+                    "target": "Selamat pagi"
+                  },
+                  {
+                    "source": "Buenas tardes",
+                    "target": "Selamat sore"
+                  },
+                  {
+                    "source": "Buenas noches",
+                    "target": "Selamat malam"
+                  },
+                  {
+                    "source": "Hasta luego",
+                    "target": "Sampai nanti"
+                  }
+                ],
+                "explanation": "Ungkapan waktu Spanyol telah cocok!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "es_u2",
+        "title": "Unit 2: Comida & Restaurante",
+        "desc": "Kosakata makanan lezat dan memesan di restoran.",
+        "color": "#ff9600",
+        "lessons": [
+          {
+            "id": "es_l4",
+            "title": "Makanan & Minuman Dasar",
+            "icon": "🍞",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari kata \"Agua\"?",
+                "audioText": "Agua",
+                "options": [
+                  {
+                    "text": "Air minum (Agua)",
+                    "isCorrect": true,
+                    "emoji": "💧"
+                  },
+                  {
+                    "text": "Roti (Pan)",
+                    "isCorrect": false,
+                    "emoji": "🥖"
+                  },
+                  {
+                    "text": "Kopi (Café)",
+                    "isCorrect": false,
+                    "emoji": "☕"
+                  },
+                  {
+                    "text": "Apel (Manzana)",
+                    "isCorrect": false,
+                    "emoji": "🍎"
+                  }
+                ],
+                "explanation": "\"Agua\" dalam bahasa Spanyol berarti air minum."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Secangkir kopi, tolong\"",
+                "audioText": "Un café por favor",
+                "targetWords": [
+                  "Un",
+                  "café,",
+                  "por",
+                  "favor"
+                ],
+                "poolWords": [
+                  "Un",
+                  "café,",
+                  "té,",
+                  "por",
+                  "favor",
+                  "gracias"
+                ],
+                "explanation": "\"Un café, por favor\" = secangkir kopi tolong."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan makanan Spanyol:",
+                "pairs": [
+                  {
+                    "source": "Pan",
+                    "target": "Roti"
+                  },
+                  {
+                    "source": "Agua",
+                    "target": "Air"
+                  },
+                  {
+                    "source": "Café",
+                    "target": "Kopi"
+                  },
+                  {
+                    "source": "Manzana",
+                    "target": "Apel"
+                  }
+                ],
+                "explanation": "Makanan Spanyol telah cocok!"
+              }
+            ]
+          },
+          {
+            "id": "es_l5",
+            "title": "Memesan di Restoran",
+            "icon": "🍽️",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara meminta tagihan di restoran Spanyol?",
+                "audioText": "La cuenta por favor",
+                "options": [
+                  {
+                    "text": "La cuenta, por favor",
+                    "isCorrect": true,
+                    "emoji": "🧾"
+                  },
+                  {
+                    "text": "El menú, por favor",
+                    "isCorrect": false,
+                    "emoji": "📖"
+                  },
+                  {
+                    "text": "¿Dónde está el baño?",
+                    "isCorrect": false,
+                    "emoji": "🚻"
+                  },
+                  {
+                    "text": "Quiero más agua",
+                    "isCorrect": false,
+                    "emoji": "💧"
+                  }
+                ],
+                "explanation": "\"La cuenta, por favor\" berarti tolong bon / tagihannya."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Sebuah meja untuk dua orang\"",
+                "audioText": "Una mesa para dos personas",
+                "targetWords": [
+                  "Una",
+                  "mesa",
+                  "para",
+                  "dos",
+                  "personas"
+                ],
+                "poolWords": [
+                  "Una",
+                  "mesa",
+                  "silla",
+                  "para",
+                  "dos",
+                  "tres",
+                  "personas"
+                ],
+                "explanation": "\"Una mesa para dos\" = meja untuk 2 orang."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan hidangan Spanyol:",
+                "pairs": [
+                  {
+                    "source": "Pollo",
+                    "target": "Daging ayam"
+                  },
+                  {
+                    "source": "Pescado",
+                    "target": "Ikan"
+                  },
+                  {
+                    "source": "Arroz",
+                    "target": "Nasi"
+                  },
+                  {
+                    "source": "Queso",
+                    "target": "Keju"
+                  }
+                ],
+                "explanation": "Hidangan Spanyol tepat!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "es_u3",
+        "title": "Unit 3: Viajes & Ciudad (Perjalanan & Kota)",
+        "desc": "Bandara, transportasi, petunjuk arah, dan hotel.",
+        "color": "#58cc02",
+        "lessons": [
+          {
+            "id": "es_l6",
+            "title": "Di Bandara & Transportasi",
+            "icon": "✈️",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari kata \"Aeropuerto\"?",
+                "audioText": "Aeropuerto",
+                "options": [
+                  {
+                    "text": "Bandar udara (Airport)",
+                    "isCorrect": true,
+                    "emoji": "✈️"
+                  },
+                  {
+                    "text": "Stasiun kereta api",
+                    "isCorrect": false,
+                    "emoji": "🚆"
+                  },
+                  {
+                    "text": "Pelabuhan kapal",
+                    "isCorrect": false,
+                    "emoji": "🚢"
+                  },
+                  {
+                    "text": "Terminal bus",
+                    "isCorrect": false,
+                    "emoji": "🚌"
+                  }
+                ],
+                "explanation": "\"Aeropuerto\" adalah bandara."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan kata perjalanan Spanyol:",
+                "pairs": [
+                  {
+                    "source": "Pasaporte",
+                    "target": "Paspor"
+                  },
+                  {
+                    "source": "Boleto",
+                    "target": "Tiket"
+                  },
+                  {
+                    "source": "Maleta",
+                    "target": "Koper"
+                  },
+                  {
+                    "source": "Tren",
+                    "target": "Kereta api"
+                  }
+                ],
+                "explanation": "Kosakata perjalanan Spanyol cocok!"
+              }
+            ]
+          },
+          {
+            "id": "es_l7",
+            "title": "Menanyakan Arah",
+            "icon": "🧭",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menanyakan \"Di mana toilet?\"",
+                "audioText": "¿Dónde está el baño?",
+                "options": [
+                  {
+                    "text": "¿Dónde está el baño?",
+                    "isCorrect": true,
+                    "emoji": "🚻"
+                  },
+                  {
+                    "text": "¿Qué hora es?",
+                    "isCorrect": false,
+                    "emoji": "⌚"
+                  },
+                  {
+                    "text": "¿Cuánto cuesta?",
+                    "isCorrect": false,
+                    "emoji": "🏷️"
+                  },
+                  {
+                    "text": "¿Cómo te llamas?",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  }
+                ],
+                "explanation": "¿Dónde está el baño? adalah pertanyaan penting saat jalan-jalan."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan petunjuk arah Spanyol:",
+                "pairs": [
+                  {
+                    "source": "A la izquierda",
+                    "target": "Ke kiri"
+                  },
+                  {
+                    "source": "A la derecha",
+                    "target": "Ke kanan"
+                  },
+                  {
+                    "source": "Todo recto",
+                    "target": "Lurus terus"
+                  },
+                  {
+                    "source": "Cerca",
+                    "target": "Dekat"
+                  }
+                ],
+                "explanation": "Petunjuk arah Spanyol telah dicocokkan!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "es_u4",
+        "title": "Unit 4: Familia & Amigos (Keluarga & Teman)",
+        "desc": "Mengenal sebutan keluarga, sifat orang, dan pertemanan.",
+        "color": "#ce82ff",
+        "lessons": [
+          {
+            "id": "es_l8",
+            "title": "Keluarga Tercinta",
+            "icon": "👨‍👩‍👦",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari kata \"Madre\"?",
+                "audioText": "Madre",
+                "options": [
+                  {
+                    "text": "Ibu",
+                    "isCorrect": true,
+                    "emoji": "👩"
+                  },
+                  {
+                    "text": "Ayah (Padre)",
+                    "isCorrect": false,
+                    "emoji": "👨"
+                  },
+                  {
+                    "text": "Saudara (Hermano)",
+                    "isCorrect": false,
+                    "emoji": "👦"
+                  },
+                  {
+                    "text": "Kakek (Abuelo)",
+                    "isCorrect": false,
+                    "emoji": "👴"
+                  }
+                ],
+                "explanation": "\"Madre\" atau \"Mamá\" berarti Ibu."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan anggota keluarga Spanyol:",
+                "pairs": [
+                  {
+                    "source": "Padre",
+                    "target": "Ayah"
+                  },
+                  {
+                    "source": "Madre",
+                    "target": "Ibu"
+                  },
+                  {
+                    "source": "Hermano",
+                    "target": "Saudara laki-laki"
+                  },
+                  {
+                    "source": "Hermana",
+                    "target": "Saudara perempuan"
+                  }
+                ],
+                "explanation": "Anggota keluarga Spanyol berhasil dicocokkan!"
+              }
+            ]
+          },
+          {
+            "id": "es_l9",
+            "title": "Deskripsi & Sifat",
+            "icon": "✨",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari kata \"Feliz\"?",
+                "audioText": "Feliz",
+                "options": [
+                  {
+                    "text": "Bahagia / Senang",
+                    "isCorrect": true,
+                    "emoji": "😄"
+                  },
+                  {
+                    "text": "Sedih (Triste)",
+                    "isCorrect": false,
+                    "emoji": "😢"
+                  },
+                  {
+                    "text": "Marah (Enojado)",
+                    "isCorrect": false,
+                    "emoji": "😠"
+                  },
+                  {
+                    "text": "Lelah (Cansado)",
+                    "isCorrect": false,
+                    "emoji": "😴"
+                  }
+                ],
+                "explanation": "\"Feliz\" berarti gembira atau bahagia."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan kata sifat Spanyol:",
+                "pairs": [
+                  {
+                    "source": "Grande",
+                    "target": "Besar"
+                  },
+                  {
+                    "source": "Pequeño",
+                    "target": "Kecil"
+                  },
+                  {
+                    "source": "Bueno",
+                    "target": "Bagus / Baik"
+                  },
+                  {
+                    "source": "Bonito",
+                    "target": "Indah / Cantik"
+                  }
+                ],
+                "explanation": "Kata sifat Spanyol tepat!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "es_u5",
+        "title": "Unit 5: Números & Compras (Angka & Belanja)",
+        "desc": "Angka 1-20, menanyakan harga, dan berbelanja di pasar.",
+        "color": "#ff4b4b",
+        "lessons": [
+          {
+            "id": "es_l10",
+            "title": "Angka 1 sampai 10",
+            "icon": "🔢",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Angka berapa \"Cinco\" dalam bahasa Spanyol?",
+                "audioText": "Cinco",
+                "options": [
+                  {
+                    "text": "Lima (5)",
+                    "isCorrect": true,
+                    "emoji": "5️⃣"
+                  },
+                  {
+                    "text": "Empat (4)",
+                    "isCorrect": false,
+                    "emoji": "4️⃣"
+                  },
+                  {
+                    "text": "Enam (6)",
+                    "isCorrect": false,
+                    "emoji": "6️⃣"
+                  },
+                  {
+                    "text": "Sepuluh (10)",
+                    "isCorrect": false,
+                    "emoji": "🔟"
+                  }
+                ],
+                "explanation": "\"Cinco\" adalah angka 5."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan angka Spanyol:",
+                "pairs": [
+                  {
+                    "source": "Uno",
+                    "target": "Satu (1)"
+                  },
+                  {
+                    "source": "Tres",
+                    "target": "Tiga (3)"
+                  },
+                  {
+                    "source": "Siete",
+                    "target": "Tujuh (7)"
+                  },
+                  {
+                    "source": "Diez",
+                    "target": "Sepuluh (10)"
+                  }
+                ],
+                "explanation": "Angka Spanyol tepat!"
+              }
+            ]
+          },
+          {
+            "id": "es_l11",
+            "title": "Berbelanja di Toko",
+            "icon": "🛍️",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menanyakan \"Berapa harganya?\"",
+                "audioText": "¿Cuánto cuesta?",
+                "options": [
+                  {
+                    "text": "¿Cuánto cuesta?",
+                    "isCorrect": true,
+                    "emoji": "🏷️"
+                  },
+                  {
+                    "text": "¿Qué es esto?",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  },
+                  {
+                    "text": "¿Dónde está?",
+                    "isCorrect": false,
+                    "emoji": "📍"
+                  },
+                  {
+                    "text": "¿Puedo entrar?",
+                    "isCorrect": false,
+                    "emoji": "🚪"
+                  }
+                ],
+                "explanation": "¿Cuánto cuesta? adalah pertanyaan menanyakan harga."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Sangat murah, saya membelinya\"",
+                "audioText": "Es muy barato lo compro",
+                "targetWords": [
+                  "Es",
+                  "muy",
+                  "barato",
+                  "lo",
+                  "compro"
+                ],
+                "poolWords": [
+                  "Es",
+                  "muy",
+                  "caro",
+                  "barato",
+                  "lo",
+                  "compro",
+                  "vendo"
+                ],
+                "explanation": "\"Barato\" = murah, \"compro\" = saya beli."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan istilah belanja Spanyol:",
+                "pairs": [
+                  {
+                    "source": "Dinero",
+                    "target": "Uang"
+                  },
+                  {
+                    "source": "Tarjeta",
+                    "target": "Kartu"
+                  },
+                  {
+                    "source": "Caro",
+                    "target": "Mahal"
+                  },
+                  {
+                    "source": "Barato",
+                    "target": "Murah"
+                  }
+                ],
+                "explanation": "Istilah belanja Spanyol telah dikuasai!"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "japanese": {
+    "id": "japanese",
+    "name": "Bahasa Jepang",
+    "nativeName": "日本語 (Nihongo)",
+    "flag": "🇯🇵",
+    "code": "ja-JP",
+    "badgeColor": "#ce82ff",
+    "welcomeMsg": "ようこそ！Ayo belajar Bahasa Jepang dari nol dengan ceria! 🇯🇵",
+    "units": [
+      {
+        "id": "ja_u1",
+        "title": "Unit 1: Sapaan & Aisatsu (挨拶と自己紹介)",
+        "desc": "Kuasai sapaan dasar Jepang, perkenalan diri, dan tata krama.",
+        "color": "#ce82ff",
+        "lessons": [
+          {
+            "id": "ja_l1",
+            "title": "Sapaan Umum (こんにちは)",
+            "icon": "🌸",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara mengucapkan \"Halo / Selamat siang\" dalam bahasa Jepang?",
+                "audioText": "こんにちは",
+                "options": [
+                  {
+                    "text": "こんにちは (Konnichiwa)",
+                    "isCorrect": true,
+                    "emoji": "👋"
+                  },
+                  {
+                    "text": "さようなら (Sayounara)",
+                    "isCorrect": false,
+                    "emoji": "🚶"
+                  },
+                  {
+                    "text": "ありがとう (Arigatou)",
+                    "isCorrect": false,
+                    "emoji": "🙏"
+                  },
+                  {
+                    "text": "すみません (Sumimasen)",
+                    "isCorrect": false,
+                    "emoji": "🙇"
+                  }
+                ],
+                "explanation": "こんにちは (Konnichiwa) adalah sapaan umum sepanjang hari di Jepang."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Terima kasih banyak\"",
+                "audioText": "どうもありがとうございます",
+                "targetWords": [
+                  "どうも",
+                  "ありがとう",
+                  "ございます"
+                ],
+                "poolWords": [
+                  "どうも",
+                  "ありがとう",
+                  "ございます",
+                  "こんにちは",
+                  "じゃあね"
+                ],
+                "explanation": "どうもありがとうございます (Doumo arigatou gozaimasu) = Terima kasih banyak secara formal."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan ungkapan Jepang berikut:",
+                "pairs": [
+                  {
+                    "source": "こんにちは (Konnichiwa)",
+                    "target": "Halo"
+                  },
+                  {
+                    "source": "ありがとう (Arigatou)",
+                    "target": "Terima kasih"
+                  },
+                  {
+                    "source": "さようなら (Sayounara)",
+                    "target": "Selamat tinggal"
+                  },
+                  {
+                    "source": "すみません (Sumimasen)",
+                    "target": "Permisi / Maaf"
+                  }
+                ],
+                "explanation": "Sapaan dasar Jepang telah cocok!"
+              },
+              {
+                "type": "listening",
+                "prompt": "Dengarkan kalimat dan tebak artinya:",
+                "audioText": "おはようございます",
+                "options": [
+                  {
+                    "text": "Selamat pagi (Ohayou gozaimasu)",
+                    "isCorrect": true,
+                    "emoji": "🌅"
+                  },
+                  {
+                    "text": "Selamat malam (Konbanwa)",
+                    "isCorrect": false,
+                    "emoji": "🌙"
+                  },
+                  {
+                    "text": "Selamat makan (Itadakimasu)",
+                    "isCorrect": false,
+                    "emoji": "🍱"
+                  },
+                  {
+                    "text": "Sampai besok (Mata ashita)",
+                    "isCorrect": false,
+                    "emoji": "👋"
+                  }
+                ],
+                "explanation": "おはようございます (Ohayou gozaimasu) = Selamat pagi."
+              }
+            ]
+          },
+          {
+            "id": "ja_l2",
+            "title": "Perkenalan Diri (はじめまして)",
+            "icon": "🙋",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Kata apa yang diucapkan saat pertama kali bertemu seseorang?",
+                "audioText": "はじめまして",
+                "options": [
+                  {
+                    "text": "はじめまして (Hajimemashite - Senang bertemu)",
+                    "isCorrect": true,
+                    "emoji": "🤝"
+                  },
+                  {
+                    "text": "おやすみなさい (Oyasuminasai - Selamat tidur)",
+                    "isCorrect": false,
+                    "emoji": "🛌"
+                  },
+                  {
+                    "text": "いただきます (Itadakimasu - Selamat makan)",
+                    "isCorrect": false,
+                    "emoji": "🥢"
+                  },
+                  {
+                    "text": "ごちそうさまでした (Gochisousama)",
+                    "isCorrect": false,
+                    "emoji": "🥣"
+                  }
+                ],
+                "explanation": "はじめまして (Hajimemashite) diucapkan di awal perkenalan."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Mohon bimbingannya (Yoroshiku)\"",
+                "audioText": "よろしくおねがいします",
+                "targetWords": [
+                  "よろしく",
+                  "おねがいします"
+                ],
+                "poolWords": [
+                  "よろしく",
+                  "おねがいします",
+                  "わたしは",
+                  "げんき"
+                ],
+                "explanation": "よろしくお願いします (Yoroshiku onegaishimasu) adalah ungkapan sopan khas Jepang."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan ungkapan diri Jepang:",
+                "pairs": [
+                  {
+                    "source": "わたし (Watashi)",
+                    "target": "Saya"
+                  },
+                  {
+                    "source": "あなた (Anata)",
+                    "target": "Anda / Kamu"
+                  },
+                  {
+                    "source": "はい (Hai)",
+                    "target": "Ya"
+                  },
+                  {
+                    "source": "いいえ (Iie)",
+                    "target": "Tidak"
+                  }
+                ],
+                "explanation": "Ungkapan diri Jepang cocok!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ja_u2",
+        "title": "Unit 2: Restoran & Makanan (食べ物とカフェ)",
+        "desc": "Makanan populer Jepang, minuman, dan cara memesan.",
+        "color": "#ff9600",
+        "lessons": [
+          {
+            "id": "ja_l3",
+            "title": "Makanan & Minuman (たべもの)",
+            "icon": "🍜",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Apa arti dari kata \"みず\" (Mizu)?",
+                "audioText": "みず",
+                "options": [
+                  {
+                    "text": "Air putih (Mizu)",
+                    "isCorrect": true,
+                    "emoji": "💧"
+                  },
+                  {
+                    "text": "Teh hijau (Ocha)",
+                    "isCorrect": false,
+                    "emoji": "🍵"
+                  },
+                  {
+                    "text": "Nasi (Gohan)",
+                    "isCorrect": false,
+                    "emoji": "🍚"
+                  },
+                  {
+                    "text": "Ikan (Sakana)",
+                    "isCorrect": false,
+                    "emoji": "🐟"
+                  }
+                ],
+                "explanation": "みず (Mizu) = air putih."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan makanan & minuman Jepang:",
+                "pairs": [
+                  {
+                    "source": "おちゃ (Ocha)",
+                    "target": "Teh hijau"
+                  },
+                  {
+                    "source": "ごはん (Gohan)",
+                    "target": "Nasi"
+                  },
+                  {
+                    "source": "ラーメン (Ramen)",
+                    "target": "Mi ramen"
+                  },
+                  {
+                    "source": "おいしい (Oishii)",
+                    "target": "Enak / Lezat"
+                  }
+                ],
+                "explanation": "Kuliner Jepang tepat!"
+              }
+            ]
+          },
+          {
+            "id": "ja_l4",
+            "title": "Pesan Makanan (これ を ください)",
+            "icon": "🍣",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara mengatakan \"Tolong berikan yang ini\"?",
+                "audioText": "これをください",
+                "options": [
+                  {
+                    "text": "これ を ください (Kore o kudasai)",
+                    "isCorrect": true,
+                    "emoji": "👉"
+                  },
+                  {
+                    "text": "どこですか (Doko desu ka)",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  },
+                  {
+                    "text": "いくらですか (Ikura desu ka)",
+                    "isCorrect": false,
+                    "emoji": "🏷️"
+                  },
+                  {
+                    "text": "なんですか (Nan desu ka)",
+                    "isCorrect": false,
+                    "emoji": "🔍"
+                  }
+                ],
+                "explanation": "これをください (Kore o kudasai) = Berikan yang ini, tolong."
+              },
+              {
+                "type": "word-bank",
+                "prompt": "Susun kalimat: \"Tolong minta bon / bill\"",
+                "audioText": "おかいけいおねがいします",
+                "targetWords": [
+                  "おかいけい",
+                  "おねがいします"
+                ],
+                "poolWords": [
+                  "おかいけい (Okaikei)",
+                  "おねがいします (onegaishimasu)",
+                  "みず (mizu)",
+                  "ください (kudasai)"
+                ],
+                "explanation": "お会計お願いします (Okaikei onegaishimasu) = Tolong minta tagihan."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ja_u3",
+        "title": "Unit 3: Angka & Belanja (数字と買い物)",
+        "desc": "Angka 1-10 dan menanyakan harga barang di Tokyo.",
+        "color": "#58cc02",
+        "lessons": [
+          {
+            "id": "ja_l5",
+            "title": "Angka 1 sampai 10 (すうじ)",
+            "icon": "🔢",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Kata bahasa Jepang untuk angka 3 adalah:",
+                "audioText": "さん",
+                "options": [
+                  {
+                    "text": "さん (San - 3)",
+                    "isCorrect": true,
+                    "emoji": "3️⃣"
+                  },
+                  {
+                    "text": "いち (Ichi - 1)",
+                    "isCorrect": false,
+                    "emoji": "1️⃣"
+                  },
+                  {
+                    "text": "に (Ni - 2)",
+                    "isCorrect": false,
+                    "emoji": "2️⃣"
+                  },
+                  {
+                    "text": "よん (Yon - 4)",
+                    "isCorrect": false,
+                    "emoji": "4️⃣"
+                  }
+                ],
+                "explanation": "さん (San) = 3."
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan angka Jepang:",
+                "pairs": [
+                  {
+                    "source": "いち (Ichi)",
+                    "target": "Satu (1)"
+                  },
+                  {
+                    "source": "ご (Go)",
+                    "target": "Lima (5)"
+                  },
+                  {
+                    "source": "なな (Nana)",
+                    "target": "Tujuh (7)"
+                  },
+                  {
+                    "source": "じゅう (Juu)",
+                    "target": "Sepuluh (10)"
+                  }
+                ],
+                "explanation": "Angka Jepang telah dicocokkan!"
+              }
+            ]
+          },
+          {
+            "id": "ja_l6",
+            "title": "Berapa Harganya? (いくらですか？)",
+            "icon": "🏷️",
+            "questions": [
+              {
+                "type": "multiple-choice",
+                "prompt": "Bagaimana cara menanyakan \"Ini harganya berapa?\"",
+                "audioText": "これはいくらですか",
+                "options": [
+                  {
+                    "text": "これは いくらですか？ (Kore wa ikura desu ka?)",
+                    "isCorrect": true,
+                    "emoji": "🏷️"
+                  },
+                  {
+                    "text": "だれですか？ (Dare desu ka?)",
+                    "isCorrect": false,
+                    "emoji": "👤"
+                  },
+                  {
+                    "text": "いつですか？ (Itsu desu ka?)",
+                    "isCorrect": false,
+                    "emoji": "📅"
+                  },
+                  {
+                    "text": "なぜですか？ (Naze desu ka?)",
+                    "isCorrect": false,
+                    "emoji": "❓"
+                  }
+                ],
+                "explanation": "いくらですか (Ikura desu ka?) = Berapa harganya?"
+              },
+              {
+                "type": "match-pairs",
+                "prompt": "Cocokkan istilah belanja Jepang:",
+                "pairs": [
+                  {
+                    "source": "えん (Yen)",
+                    "target": "Mata uang Yen"
+                  },
+                  {
+                    "source": "たかい (Takai)",
+                    "target": "Mahal"
+                  },
+                  {
+                    "source": "やすい (Yasui)",
+                    "target": "Murah"
+                  },
+                  {
+                    "source": "カード (Kaado)",
+                    "target": "Kartu kredit"
+                  }
+                ],
+                "explanation": "Kosakata belanja Jepang telah cocok!"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+};
 
     /* ==========================================================================
        4. STORAGE & STREAK MANAGEMENT
@@ -1801,7 +4741,17 @@
       load() {
         try {
           const val = localStorage.getItem(this.KEY);
-          if (val) return { ...this.getDefault(), ...JSON.parse(val) };
+          if (val) {
+            const parsed = JSON.parse(val);
+            const state = { ...this.getDefault(), ...parsed };
+            if (!COURSES[state.currentLang]) {
+              state.currentLang = 'english';
+            }
+            if (!state.completedLessons || typeof state.completedLessons !== 'object') {
+              state.completedLessons = {};
+            }
+            return state;
+          }
         } catch(e) {}
         return this.getDefault();
       }
@@ -2277,7 +5227,7 @@
        ========================================================================== */
     function updateAllStatsUI() {
       const state = storage.state;
-      const currentCourse = COURSES[state.currentLang];
+      const currentCourse = COURSES[state.currentLang] || COURSES.english;
 
       // Header UI
       document.getElementById('headerFlag').textContent = currentCourse.flag;
@@ -2304,15 +5254,93 @@
         badge.style.color = '#888';
       }
 
+      const sideLang = document.getElementById('sidebarCurrentLang');
+      if (sideLang) {
+        sideLang.textContent = `${currentCourse.flag} ${currentCourse.name}`;
+      }
+
       // Days of Week Row
       renderWeekRow('streakDaysRow');
 
       // Mascot Speech
       const mascot = document.getElementById('mascotSpeech');
       if (storage.isDoneToday()) {
-        mascot.textContent = `Hebat! Streak ${state.streak} harimu sudah menyala terang hari ini! Pertahankan besok! 🎉`;
+        mascot.textContent = `Hebat! Streak ${state.streak} harimu sudah menyala hari ini! Pertahankan di ${currentCourse.name}! 🎉`;
       } else {
-        mascot.textContent = `Ayo selesaikan 1 pelajaran ${currentCourse.name} hari ini agar streak apimu tidak padam! 🔥`;
+        mascot.textContent = currentCourse.welcomeMsg || `Ayo selesaikan 1 pelajaran ${currentCourse.name} hari ini agar streak apimu tidak padam! 🔥`;
+      }
+
+      // Render Switchers
+      renderCourseSwitcherTabs();
+      renderSidebarLanguages();
+    }
+
+    function renderCourseSwitcherTabs() {
+      const tabsList = document.getElementById('courseTabsList');
+      if (!tabsList) return;
+      tabsList.innerHTML = '';
+
+      const activeLang = storage.state.currentLang;
+
+      for (const [key, course] of Object.entries(COURSES)) {
+        const isActive = (key === activeLang);
+        const card = document.createElement('div');
+        card.className = `course-tab-card ${isActive ? 'active' : ''}`;
+        card.style.setProperty('--active-theme-color', course.badgeColor || '#58cc02');
+        card.style.setProperty('--active-theme-dark', '#333');
+
+        let totalLessons = 0;
+        course.units.forEach(u => totalLessons += u.lessons.length);
+        const completedList = storage.state.completedLessons[key] || [];
+        const completedCount = completedList.length;
+
+        card.innerHTML = `
+          <span class="course-tab-flag">${course.flag}</span>
+          <div class="course-tab-info">
+            <span class="course-tab-name">${course.name}</span>
+            <span class="course-tab-meta">${course.units.length} Unit • ${completedCount}/${totalLessons} Selesai</span>
+          </div>
+          <span class="course-tab-active-badge">✓ AKTIF</span>
+        `;
+
+        card.onclick = () => {
+          if (key !== storage.state.currentLang) {
+            switchLanguage(key);
+          }
+        };
+
+        tabsList.appendChild(card);
+      }
+    }
+
+    function renderSidebarLanguages() {
+      const sideList = document.getElementById('sideLangBtnList');
+      if (!sideList) return;
+      sideList.innerHTML = '';
+
+      const activeLang = storage.state.currentLang;
+
+      for (const [key, course] of Object.entries(COURSES)) {
+        const isActive = (key === activeLang);
+        const btn = document.createElement('div');
+        btn.className = `side-lang-item ${isActive ? 'active' : ''}`;
+
+        let totalLessons = 0;
+        course.units.forEach(u => totalLessons += u.lessons.length);
+        const completedList = storage.state.completedLessons[key] || [];
+
+        btn.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 18px;">${course.flag}</span>
+            <span>${course.name}</span>
+          </div>
+          <span style="font-size: 11px; font-weight: 800; color: ${isActive ? 'var(--color-green-dark)' : '#888'};">
+            ${isActive ? '✓ Aktif' : `${completedList.length}/${totalLessons}`}
+          </span>
+        `;
+
+        btn.onclick = () => switchLanguage(key);
+        sideList.appendChild(btn);
       }
     }
 
@@ -2357,25 +5385,29 @@
     }
 
     function renderLearningPath() {
-      const container = document.getElementById('pathContainer');
-      container.innerHTML = '';
+      const wrapper = document.getElementById('unitTreeWrapper') || document.getElementById('pathContainer');
+      if (!wrapper) return;
+      wrapper.innerHTML = '';
 
-      const course = COURSES[storage.state.currentLang];
+      const course = COURSES[storage.state.currentLang] || COURSES.english;
       const completedList = storage.state.completedLessons[course.id] || [];
 
       course.units.forEach((unit, unitIdx) => {
         // Unit Banner
         const banner = document.createElement('div');
         banner.className = 'unit-banner';
-        banner.style.background = `linear-gradient(135deg, ${unit.color} 0%, #2b2b2b 180%)`;
+        banner.style.background = `linear-gradient(135deg, ${unit.color} 0%, #222222 190%)`;
         banner.innerHTML = `
           <div class="unit-header">
             <h3>${unit.title}</h3>
             <p>${unit.desc}</p>
           </div>
-          <span style="font-size: 32px;">🏆</span>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+            <span style="font-size: 32px;">${unitIdx === 0 ? '🌟' : (unitIdx === 1 ? '☕' : (unitIdx === 2 ? '✈️' : (unitIdx === 3 ? '🏡' : '🏆')))}</span>
+            <span style="font-size: 11px; font-weight:800; opacity:0.85;">${unit.lessons.length} Pelajaran</span>
+          </div>
         `;
-        container.appendChild(banner);
+        wrapper.appendChild(banner);
 
         // Lesson Tree
         const tree = document.createElement('div');
@@ -2383,11 +5415,26 @@
 
         unit.lessons.forEach((lesson, lIdx) => {
           const isDone = completedList.includes(lesson.id);
-          // Lesson pertama terbuka, berikutnya terbuka jika sebelumnya selesai
-          const isUnlocked = (unitIdx === 0 && lIdx === 0) || isDone || (lIdx > 0 && completedList.includes(unit.lessons[lIdx - 1].id)) || (unitIdx > 0 && true);
+          // Unlock rule:
+          // 1. First lesson of unit 1 is always unlocked
+          // 2. Any completed lesson is unlocked
+          // 3. Lesson is unlocked if previous lesson in same unit is done
+          // 4. First lesson of subsequent units is unlocked if any lesson of previous unit is done or first unit has progress
+          let isUnlocked = false;
+          if (unitIdx === 0 && lIdx === 0) {
+            isUnlocked = true;
+          } else if (isDone) {
+            isUnlocked = true;
+          } else if (lIdx > 0 && completedList.includes(unit.lessons[lIdx - 1].id)) {
+            isUnlocked = true;
+          } else if (lIdx === 0 && unitIdx > 0) {
+            const prevUnit = course.units[unitIdx - 1];
+            const prevDone = prevUnit.lessons.some(l => completedList.includes(l.id));
+            isUnlocked = prevDone || (completedList.length >= unitIdx);
+          }
 
-          const wrapper = document.createElement('div');
-          wrapper.className = 'lesson-node-wrapper';
+          const nodeWrapper = document.createElement('div');
+          nodeWrapper.className = 'lesson-node-wrapper';
 
           const btn = document.createElement('button');
           btn.className = `lesson-btn ${isDone ? 'completed' : ''} ${!isUnlocked ? 'locked' : ''}`;
@@ -2398,7 +5445,7 @@
             const crown = document.createElement('div');
             crown.className = 'crown-badge';
             crown.textContent = '👑';
-            wrapper.appendChild(crown);
+            nodeWrapper.appendChild(crown);
           }
 
           if (isUnlocked) {
@@ -2412,12 +5459,12 @@
           tooltip.className = 'lesson-title-tooltip';
           tooltip.textContent = lesson.title;
 
-          wrapper.appendChild(btn);
-          wrapper.appendChild(tooltip);
-          tree.appendChild(wrapper);
+          nodeWrapper.appendChild(btn);
+          nodeWrapper.appendChild(tooltip);
+          tree.appendChild(nodeWrapper);
         });
 
-        container.appendChild(tree);
+        wrapper.appendChild(tree);
       });
     }
 
@@ -2467,19 +5514,55 @@
        ========================================================================== */
     function openLanguageModal() {
       sound.playPop();
-      ['english', 'mandarin', 'spanish'].forEach(l => {
-        const item = document.getElementById(`langOption-${l}`);
-        if (item) {
-          if (l === storage.state.currentLang) {
-            item.classList.add('active');
-            item.querySelector('.active-badge').textContent = '✓';
-          } else {
-            item.classList.remove('active');
-            item.querySelector('.active-badge').textContent = '';
-          }
+      const modalList = document.getElementById('modalLangOptionList');
+      if (modalList) {
+        modalList.innerHTML = '';
+        for (const [key, course] of Object.entries(COURSES)) {
+          const isActive = (key === storage.state.currentLang);
+          const item = document.createElement('div');
+          item.className = `lang-option-item ${isActive ? 'active' : ''}`;
+          
+          let totalLessons = 0;
+          course.units.forEach(u => totalLessons += u.lessons.length);
+          const completedList = storage.state.completedLessons[key] || [];
+
+          item.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <span style="font-size: 32px;">${course.flag}</span>
+              <div style="text-align: left;">
+                <div style="font-size: 17px; font-weight: 900; color: var(--color-text);">${course.name}</div>
+                <div style="font-size: 12px; font-weight: 700; color: #666;">${course.nativeName || ''} • ${course.units.length} Unit (${totalLessons} Pelajaran)</div>
+                <div style="margin-top: 4px;">
+                  <button class="lang-voice-test-btn" onclick="event.stopPropagation(); playLangVoiceSample('${key}')">
+                    🔊 Dengar Suara
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span class="active-badge" style="font-size: 20px; font-weight: 900; color: var(--color-green);">${isActive ? '✓ Aktif' : ''}</span>
+              <div style="font-size: 11px; font-weight: 700; color: #888;">${completedList.length}/${totalLessons} selesai</div>
+            </div>
+          `;
+
+          item.onclick = () => switchLanguage(key);
+          modalList.appendChild(item);
         }
-      });
+      }
       document.getElementById('langModal').classList.add('open');
+    }
+
+    function playLangVoiceSample(langKey) {
+      sound.playPop();
+      const course = COURSES[langKey];
+      if (!course) return;
+      const samplePhrases = {
+        english: 'Hello, welcome to English lesson!',
+        mandarin: '你好，欢迎学习中文！',
+        spanish: '¡Hola! Bienvenido al curso de español.',
+        japanese: 'こんにちは！日本語の学習へようこそ！'
+      };
+      speech.speak(samplePhrases[langKey] || 'Hello', course.code);
     }
 
     function closeLanguageModal() {
@@ -2495,6 +5578,20 @@
         closeLanguageModal();
         updateAllStatsUI();
         renderLearningPath();
+
+        // Speak welcoming greeting in that language
+        const course = COURSES[langKey];
+        if (course) {
+          setTimeout(() => {
+            const greetings = {
+              english: 'Welcome!',
+              mandarin: '你好！',
+              spanish: '¡Hola!',
+              japanese: 'こんにちは！'
+            };
+            speech.speak(greetings[langKey] || course.name, course.code);
+          }, 350);
+        }
       }
     }
 
@@ -2505,15 +5602,15 @@
       updateAllStatsUI();
       alert('❤️ Hati kamu sekarang sudah terisi penuh (5/5)! Selamat belajar kembali!');
     }
-
     /* ==========================================================================
        9. CANVAS CONFETTI CELEBRATION
        ========================================================================== */
     const canvas = document.getElementById('confettiCanvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = (canvas && canvas.getContext) ? canvas.getContext('2d') : null;
     let confettiParticles = [];
 
     function resizeCanvas() {
+      if (!canvas) return;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
@@ -2521,6 +5618,7 @@
     resizeCanvas();
 
     function triggerConfetti() {
+      if (!ctx || !canvas) return;
       confettiParticles = [];
       const colors = ['#58cc02', '#ff9600', '#1cb0f6', '#ff4b4b', '#ce82ff', '#ffd700'];
       for (let i = 0; i < 90; i++) {
@@ -2542,6 +5640,7 @@
 
     let confettiAnimId = null;
     function animateConfetti() {
+      if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       let aliveCount = 0;
 
