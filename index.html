@@ -1550,38 +1550,87 @@
       const auth = getAuth(app);
       const db = getFirestore(app);
 
+      // Persistent user identifier
+      let localUid = localStorage.getItem('duobelajar_uid');
+      if (!localUid) {
+        localUid = 'learner_' + Math.random().toString(36).substring(2, 9);
+        localStorage.setItem('duobelajar_uid', localUid);
+      }
+
       window.FirebaseBridge = {
         app,
         auth,
         db,
         isReady: true,
         currentUser: null,
+        localUid,
+        getEffectiveUid() {
+          return (this.currentUser && this.currentUser.uid) ? this.currentUser.uid : this.localUid;
+        },
         async syncToCloud(state) {
-          if (!this.currentUser) return;
+          const uid = this.getEffectiveUid();
           try {
-            const userRef = doc(db, "users", this.currentUser.uid);
+            const userRef = doc(db, "users", uid);
             await setDoc(userRef, {
-              currentLang: state.currentLang,
-              streak: state.streak,
-              lastDate: state.lastDate,
-              history: state.history,
-              xp: state.xp,
-              gems: state.gems,
-              hearts: state.hearts,
-              completedLessons: state.completedLessons,
+              username: "Richie Federico",
+              currentLang: state.currentLang || 'english',
+              streak: state.streak || 0,
+              lastDate: state.lastDate || null,
+              history: state.history || [],
+              xp: state.xp || 0,
+              gems: state.gems || 0,
+              hearts: state.hearts || 5,
+              completedLessons: state.completedLessons || {},
               updatedAt: serverTimestamp()
             }, { merge: true });
+
+            // Also update leaderboard entry
+            const lbRef = doc(db, "leaderboard", uid);
+            await setDoc(lbRef, {
+              username: "Richie Federico",
+              xp: state.xp || 0,
+              streak: state.streak || 0,
+              lang: state.currentLang || 'english',
+              updatedAt: serverTimestamp()
+            }, { merge: true });
+
             if (typeof updateFirebaseStatusUI === 'function') {
-              updateFirebaseStatusUI('synced', this.currentUser.uid);
+              updateFirebaseStatusUI('synced', uid);
             }
           } catch(e) {
-            console.warn('Firebase sync warning:', e);
+            console.warn('Firebase SDK sync notice, using REST fallback:', e);
+            this.syncViaRest(uid, state);
+          }
+        },
+        async syncViaRest(uid, state) {
+          try {
+            const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/users/${uid}?key=${firebaseConfig.apiKey}`;
+            await fetch(url, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                fields: {
+                  username: { stringValue: 'Richie Federico' },
+                  currentLang: { stringValue: state.currentLang || 'english' },
+                  streak: { integerValue: String(state.streak || 0) },
+                  xp: { integerValue: String(state.xp || 0) },
+                  gems: { integerValue: String(state.gems || 0) },
+                  hearts: { integerValue: String(state.hearts || 5) },
+                  updatedAt: { timestampValue: new Date().toISOString() }
+                }
+              })
+            });
+            if (typeof updateFirebaseStatusUI === 'function') {
+              updateFirebaseStatusUI('synced', uid);
+            }
+          } catch(err) {
+            console.warn('REST fallback error:', err);
           }
         },
         async loadFromCloud() {
-          if (!this.currentUser) return null;
+          const uid = this.getEffectiveUid();
           try {
-            const userRef = doc(db, "users", this.currentUser.uid);
+            const userRef = doc(db, "users", uid);
             const snap = await getDoc(userRef);
             if (snap.exists()) {
               return snap.data();
@@ -1613,7 +1662,7 @@
                   ...cloudData.completedLessons
                 }
               };
-              window.storage.save(false); // local save only
+              window.storage.save(false);
               if (typeof updateAllStatsUI === 'function') updateAllStatsUI();
               if (typeof renderLearningPath === 'function') renderLearningPath();
             }
@@ -1622,16 +1671,15 @@
           try {
             await signInAnonymously(auth);
           } catch(e) {
-            console.warn('Anonymous auth note:', e);
             if (typeof updateFirebaseStatusUI === 'function') {
-              updateFirebaseStatusUI('connected', 'Guest');
+              updateFirebaseStatusUI('connected', localUid);
             }
           }
         }
       });
 
       if (typeof updateFirebaseStatusUI === 'function') {
-        updateFirebaseStatusUI('connected');
+        updateFirebaseStatusUI('connected', localUid);
       }
     } catch(err) {
       console.warn('Firebase init note:', err);
@@ -5938,6 +5986,9 @@
     window.addEventListener('DOMContentLoaded', () => {
       updateAllStatsUI();
       renderLearningPath();
+      if (window.FirebaseBridge && window.storage) {
+        window.FirebaseBridge.syncToCloud(window.storage.state);
+      }
     });
   </script>
 </body>
